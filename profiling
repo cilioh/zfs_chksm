@@ -1,0 +1,3 @@
+module/zfs/zfs_ioctl.c
+include/sys/zio.h
+module/zfs/zio.c

@@ -434,6 +434,8 @@ struct zio {
 
 	/* Data represented by this I/O */
 	struct abd	*io_abd;
+	//JW
+	struct abd	*jw_io_abd;
 	struct abd	*io_orig_abd;
 	uint64_t	io_size;
 	uint64_t	io_orig_size;

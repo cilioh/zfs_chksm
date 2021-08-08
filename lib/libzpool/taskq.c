@@ -301,6 +301,58 @@ taskq_create(const char *name, int nthreads, pri_t pri,
 	return (tq);
 }
 
+//chksm
+taskq_t *
+chksm_taskq_create(const char *name, int nthreads, pri_t pri,
+    int minalloc, int maxalloc, uint_t flags)
+{
+	taskq_t *tq = kmem_zalloc(sizeof (taskq_t), KM_SLEEP);
+	int t;
+
+	if (flags & TASKQ_THREADS_CPU_PCT) {
+		int pct;
+		ASSERT3S(nthreads, >=, 0);
+		ASSERT3S(nthreads, <=, 100);
+		pct = MIN(nthreads, 100);
+		pct = MAX(pct, 0);
+
+		nthreads = (sysconf(_SC_NPROCESSORS_ONLN) * pct) / 100;
+		nthreads = MAX(nthreads, 1);	/* need at least 1 thread */
+	} else {
+		ASSERT3S(nthreads, >=, 1);
+	}
+	rw_init(&tq->tq_threadlock, NULL, RW_DEFAULT, NULL);
+	mutex_init(&tq->tq_lock, NULL, MUTEX_DEFAULT, NULL);
+	cv_init(&tq->tq_dispatch_cv, NULL, CV_DEFAULT, NULL);
+	cv_init(&tq->tq_wait_cv, NULL, CV_DEFAULT, NULL);
+	cv_init(&tq->tq_maxalloc_cv, NULL, CV_DEFAULT, NULL);
+	(void) strncpy(tq->tq_name, name, TASKQ_NAMELEN);
+	tq->tq_flags = flags | TASKQ_ACTIVE;
+	tq->tq_active = nthreads;
+	tq->tq_nthreads = nthreads;
+	tq->tq_minalloc = minalloc;
+	tq->tq_maxalloc = maxalloc;
+	tq->tq_task.tqent_next = &tq->tq_task;
+	tq->tq_task.tqent_prev = &tq->tq_task;
+	tq->tq_threadlist = kmem_alloc(nthreads * sizeof (kthread_t *),
+	    KM_SLEEP);
+
+	if (flags & TASKQ_PREPOPULATE) {
+		mutex_enter(&tq->tq_lock);
+		while (minalloc-- > 0)
+			task_free(tq, task_alloc(tq, KM_SLEEP));
+		mutex_exit(&tq->tq_lock);
+	}
+
+	for (t = 0; t < nthreads; t++)
+		VERIFY((tq->tq_threadlist[t] = thread_create(NULL, 0,
+		    taskq_thread, tq, 0, &p0, TS_RUN, pri)) != NULL);
+
+	return (tq);
+}
+
+
+
 int
 taskq_get_active(taskq_t *tq)
 {

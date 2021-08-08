@@ -929,7 +929,7 @@ spa_taskqs_init(spa_t *spa, zio_type_t t, zio_taskq_type_t q)
 		flags |= TASKQ_THREADS_CPU_PCT;
 		value = MIN(zio_taskq_batch_pct, 100);
 		break;
-	//JW
+	//chksm
 	case ZTI_MODE_BATCH_CHKSM:
 		batch = B_TRUE;
 		flags |= TASKQ_THREADS_CPU_PCT;
@@ -972,8 +972,13 @@ spa_taskqs_init(spa_t *spa, zio_type_t t, zio_taskq_type_t q)
 			 */
 			if (t == ZIO_TYPE_WRITE && q == ZIO_TASKQ_ISSUE)
 				pri++;
-			tq = taskq_create_proc(name, value, pri, 50,
-			    INT_MAX, spa->spa_proc, flags);
+			//chksm
+			if (t == ZIO_TYPE_WRITE && q == ZIO_TASKQ_CHKSM)
+				tq = chksm_taskq_create_proc(name, value, pri, 50,
+					INT_MAX, spa->spa_proc, flags);
+			else
+				tq = taskq_create_proc(name, value, pri, 50,
+			    		INT_MAX, spa->spa_proc, flags);
 			dprintf("[%s] nthreads:%d\n", name, tq->tq_nthreads);
 		}
 
@@ -1059,7 +1064,17 @@ if(q == ZIO_TASKQ_ISSUE) {
 		taskq_dispatch_ent(tq, func, arg, flags, ent);
 */
 
+//if(jww % 10000 == 0)
+/*
+if (q == ZIO_TASKQ_CHKSM)
+{
+#ifdef _KERNEL
+	printk(KERN_WARNING "[orgin][%d] tq_name:%s\n", jww, tq->tq_name);
+#endif
+}
+*/
 	taskq_dispatch_ent(tq, func, arg, flags, ent);
+//jww++;
 
 if (q == ZIO_TASKQ_ISSUE){
 	n_local[1] = gethrtime();

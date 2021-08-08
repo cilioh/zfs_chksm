@@ -344,18 +344,14 @@ eea_local[0] = gethrtime();
 //JW0628
 //	zio_cksum_t	blk_cksum_tmp;
 
-
 	ASSERT((uint_t)checksum < ZIO_CHECKSUM_FUNCTIONS);
 	ASSERT(ci->ci_func[0] != NULL);
 
 	zio_checksum_template_init(checksum, spa);
-
 eea_local[1] = gethrtime();
 calclock(eea_local, &eea_t, &eea_c);
-
 hrtime_t eeb_local[2];
 eeb_local[0] = gethrtime();
-//dprintf("[%u][aaa]\n", zio->id);
 
 	if (ci->ci_flags & ZCHECKSUM_FLAG_EMBEDDED) {
 		zio_eck_t eck;
@@ -364,7 +360,6 @@ eeb_local[0] = gethrtime();
 hrtime_t eec_local[2];
 eec_local[0] = gethrtime();
 		if (checksum == ZIO_CHECKSUM_ZILOG2) {
-			//dprintf("[aa_1]\n");
 			zil_chain_t zilc;
 			abd_copy_to_buf(&zilc, abd, sizeof (zil_chain_t));
 			size = P2ROUNDUP_TYPED(zilc.zc_nused, ZIL_MIN_BLKSZ,
@@ -372,16 +367,12 @@ eec_local[0] = gethrtime();
 			eck = zilc.zc_eck;
 			eck_offset = offsetof(zil_chain_t, zc_eck);
 		} else {
-			//dprintf("[aa_2]\n");
 			eck_offset = size - sizeof (zio_eck_t);
 			abd_copy_to_buf_off(&eck, abd, eck_offset,
 			    sizeof (zio_eck_t));
 		}
 eec_local[1] = gethrtime();
 calclock(eec_local, &eec_t, &eec_c);
-
-
-
 hrtime_t eed_local[2];
 eed_local[0] = gethrtime();
 //dprintf("[%u][bbb]\n", zio->id);
@@ -402,8 +393,6 @@ eed_local[0] = gethrtime();
 		}
 eed_local[1] = gethrtime();
 calclock(eed_local, &eed_t, &eed_c);
-
-
 hrtime_t eee_local[2];
 eee_local[0] = gethrtime();
 //dprintf("[%u][ccc]\n", zio->id);
@@ -420,15 +409,14 @@ eee_local[0] = gethrtime();
 eee_local[1] = gethrtime();
 calclock(eee_local, &eee_t, &eee_c);
 
-
 	} else {
 hrtime_t eef_local[2];
 eef_local[0] = gethrtime();
 //dprintf("[%u][ddd]\n", zio->id);
 //JW: calling abd_fletcher_4_native function
 		//JW0628	
-		//ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
-		//    &bp->blk_cksum);
+		ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
+		    &bp->blk_cksum);
 
 		//ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
 		//    &blk_cksum_tmp);

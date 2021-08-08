@@ -97,7 +97,7 @@ int zio_nactive = 0;
 int zio_ctxt = 0;
 int zio_opt = 0;
 int zio_chksm_ratio=1;
-
+kmem_cache_t *new_zio_cache;
 
 #define	BP_SPANB(indblkshift, level) \
 	(((uint64_t)1) << ((level) * ((indblkshift) - SPA_BLKPTRSHIFT)))
@@ -142,6 +142,10 @@ zio_init(void)
 	size_t c;
 	vmem_t *data_alloc_arena = NULL;
 
+//JW
+	new_zio_cache = kmem_cache_create("new_zio_cache",
+	    sizeof (zio_t), 0, NULL, NULL, NULL, NULL, NULL, 0);
+//
 	zio_cache = kmem_cache_create("zio_cache",
 	    sizeof (zio_t), 0, NULL, NULL, NULL, NULL, NULL, 0);
 	zio_link_cache = kmem_cache_create("zio_link_cache",
@@ -262,6 +266,9 @@ zio_fini(void)
 	kmem_cache_destroy(zio_link_cache);
 	kmem_cache_destroy(zio_cache);
 
+//JW
+	kmem_cache_destroy(new_zio_cache);
+//
 	zio_inject_fini();
 
 	lz4_fini();
@@ -744,6 +751,9 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 	zio->io_vd = vd;
 	zio->io_offset = offset;
 	zio->io_orig_abd = zio->io_abd = data;
+	//JW
+	//memcpy(zio->jw_io_abd, data, sizeof(abd_t));
+	zio->jw_io_abd = data;
 	zio->io_orig_size = zio->io_size = psize;
 	zio->io_lsize = lsize;
 	zio->io_orig_flags = zio->io_flags = flags;
@@ -1685,23 +1695,18 @@ calclock(b_local, &b_t, &b_c);
 }
 
 //JW_chk
+int jwww = 0;
 static void
 chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 {
 	spa_t *spa = zio->io_spa;
 	zio_type_t t = zio->io_type;
 	int flags = (cutinline ? TQ_FRONT : 0);
-	/*
-	if (zio->io_flags & (ZIO_FLAG_CONFIG_WRITER | ZIO_FLAG_PROBE))
-		t = ZIO_TYPE_NULL;
 	
-	if (t == ZIO_TYPE_WRITE && zio->io_vd && zio->io_vd->vdev_aux)
-		t = ZIO_TYPE_NULL;
-
 	if (zio->io_priority == ZIO_PRIORITY_NOW &&
 	    spa->spa_zio_taskq[t][q + 1].stqs_count != 0)
 		q++;
-	*/
+	
 	ASSERT3U(q, <, ZIO_TASKQ_TYPES);
 
 	spa_taskqs_t *tqs = &spa->spa_zio_taskq[t][q];
@@ -1716,53 +1721,22 @@ chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 		tq = tqs->stqs_taskq[((uint64_t)gethrtime()) % tqs->stqs_count];
 	}
 
-	//ASSERT(taskq_empty_ent(&zio->chksm_io_tqent));
-	ASSERT(taskq_empty_ent(&zio->io_tqent));
-	//dprintf("[%u] chksm:%d \n", zio->id, zio->chksm);
-/*
-#ifdef _KERNEL
-	if(zio->id < 700)
-		printk(KERN_WARNING "ZIO_chk: name:%s nactive:%d [%u] \n", tq->tq_name, tq->tq_nactive, zio->id);
-	//dprintf("[%u] chksm:%d tq_name:%s tq_nthreads:%d tq_nactive:%d \n", zio->id, zio->chksm, tq->tq_name, tq->tq_nthreads, tq->tq_nactive);
-#endif
-*/	
-	//chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, zio, flags, &zio->chksm_io_tqent);
+	ASSERT(taskq_empty_ent(&zio->chksm_io_tqent));
+
+	taskq_ent_t	chksm_io_tqent;
+	taskq_init_ent(&chksm_io_tqent);
+
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "[chksm][%d] tq_name:%s zio_id:%d\n", jwww, tq->tq_name, zio->id);
+//#endif
 	
-	
-	
-	//JW0701
-	
-	zio_t *chksm_zio = kmem_cache_alloc(zio_cache, KM_SLEEP);
-	bzero(chksm_zio, sizeof(zio_t));
-	taskq_init_ent(&chksm_zio->io_tqent);
-	chksm_zio->id = 0;
+	zio_t *new_zio;
+	new_zio = kmem_cache_alloc(new_zio_cache, KM_SLEEP);
+	bzero(new_zio, sizeof(zio_t));
+	taskq_init_ent(&new_zio->chksm_io_tqent);
+	new_zio->id = zio->id;
 
-	//chksm_zio->io_bp = (blkptr_t *)zio->io_bp;a
-	if(zio->io_bp != NULL)
-		memcpy((void *)chksm_zio->io_bp, (void *)zio->io_bp, sizeof(zio->io_bp));
-	chksm_zio->io_prop = zio->io_prop;
-	chksm_zio->io_child_type = zio->io_child_type;
-
-	//chksm_zio->io_abd = (struct abd *)zio->io_abd;
-	if(zio->io_abd != NULL)
-		memcpy((void *)chksm_zio->io_abd, (void *)zio->io_abd, sizeof(zio->io_abd));
-	chksm_zio->io_size = zio->io_size;
-
-	chksm_zio->io_offset = zio->io_offset;
-	//chksm_zio->io_spa = (spa_t *)zio->io_spa;
-	if(zio->io_spa != NULL)
-		memcpy((void *)chksm_zio->io_spa, (void *)zio->io_spa, sizeof(zio->io_spa));
-
-
-	chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, chksm_zio, flags, &chksm_zio->io_tqent, chksm_zio->id);
-
-
-
-	//chksm_zio_checksum_generate(zio);
-	//zio->chksm = 2;
-	
-	//spa_taskq_dispatch_ent(spa, t, q, (task_func_t *)zio_checksum_generate, zio,
-	//    flags, &zio->chksm_io_tqent);
+	chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, new_zio, flags, &new_zio->chksm_io_tqent, new_zio->id);
 }
 
 
@@ -2054,10 +2028,10 @@ calclock(a_local, &a_t, &a_c);
 //
 //		CHECKSUM stage
 		if(zio_opt == 1 && highbit64(stage)-1 == 6){
-			//zio->chksm = 1;
+			zio->chksm = 1;
 			//dprintf("[%u] chksm:%d tq_name:%s tq_nthreads:%d tq_nactive:%d \n", zio->id, zio->chksm, tq->tq_name, tq->tq_nthreads, tq->tq_nactive);
+			//chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_TRUE);
 			chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_FALSE);
-			//chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_ISSUE, B_FALSE);
 			stage <<= 1;
 		}
 		//0616
@@ -2146,7 +2120,15 @@ c_local[0] = gethrtime();
 	mutex_exit(&zio->io_lock);
 	error = zio->io_error;
 	zio_destroy(zio);
-
+	/*
+	if(zio->chksm != 1)
+		zio_destroy(zio);
+	else{
+#ifdef _KERNEL
+		printk(KERN_WARNING "do not destroy the zio structure [wait][%u]\n", zio->id);
+#endif	
+	}
+*/
 c_local[1] = gethrtime();
 calclock(c_local, &c_t, &c_c);
 	return (error);
@@ -3388,6 +3370,7 @@ zio_allocate_dispatch(spa_t *spa)
 	ASSERT3U(zio->io_stage, ==, ZIO_STAGE_DVA_THROTTLE);
 	ASSERT0(zio->io_error);
 	//JW0501
+	/*
 hrtime_t chk_local[2];
 chk_local[0] = gethrtime();
 #ifdef _KERNEL
@@ -3402,6 +3385,11 @@ chk_local[0] = gethrtime();
 #endif
 chk_local[1] = gethrtime();
 calclock(chk_local, &chk_t, &chk_c);
+*/
+//#ifdef _KERNEL
+//	if(zio->chksm == 1)
+//		printk(KERN_WARNING "BARRIER_zio_allocate_dispatch\n");
+//#endif
 	//if(zio->chksm != 1)
 	zio_taskq_dispatch(zio, ZIO_TASKQ_ISSUE, B_TRUE);
 }
@@ -3972,8 +3960,15 @@ unsigned long long ee_t1=0, ee_c1=0;
 void
 chksm_zio_checksum_generate(zio_t *zio)
 {
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "ZIO HERE [%u]\n", zio->id);
+//#endif
+	kmem_cache_free(new_zio_cache, zio);
+
+	/*
 	blkptr_t *bp = zio->io_bp;
 	enum zio_checksum checksum;
+
 hrtime_t ee_local1[2];
 ee_local1[0] = gethrtime();
 	if (bp == NULL) {
@@ -3983,8 +3978,8 @@ ee_local1[0] = gethrtime();
 
 		if (checksum == ZIO_CHECKSUM_OFF){
 			//JW_chk
-			//if(jw_zio->chksm != 0)
-			//	jw_zio->chksm = 2;
+			if(zio->chksm != 0)
+				zio->chksm = 2;
 ee_local1[1] = gethrtime();
 calclock(ee_local1, &ee_t1, &ee_c1);
 			return (NULL);
@@ -3992,7 +3987,7 @@ calclock(ee_local1, &ee_t1, &ee_c1);
 		ASSERT(checksum == ZIO_CHECKSUM_LABEL);
 	} else {
 		if (BP_IS_GANG(bp) && zio->io_child_type == ZIO_CHILD_GANG) {
-			ASSERT(!IO_IS_ALLOCATING(jw_zio));
+			ASSERT(!IO_IS_ALLOCATING(zio));
 			checksum = ZIO_CHECKSUM_GANG_HEADER;
 		} else {
 			checksum = BP_GET_CHECKSUM(bp);
@@ -4001,12 +3996,16 @@ calclock(ee_local1, &ee_t1, &ee_c1);
 //JW0124 : remove checksum
 //JW_chk
 //0330
-
-	zio_checksum_compute(zio, checksum, zio->io_abd, zio->io_size);
+#ifdef _KERNEL
+	printk(KERN_WARNING "CHECKSUM [%d]\n", zio->id);
+#endif
 	
-	//zio->chksm = 2;
+	//zio_checksum_compute(zio, checksum, zio->jw_io_abd, zio->io_size);
+	
+	zio->chksm = 2;
 ee_local1[1] = gethrtime();
 calclock(ee_local1, &ee_t1, &ee_c1);	
+*/
 	return (NULL);
 
 
@@ -4115,7 +4114,7 @@ zio_ready(zio_t *zio)
 	blkptr_t *bp = zio->io_bp;
 	zio_t *pio, *pio_next;
 	zio_link_t *zl = NULL;
-
+	/*
 hrtime_t chk_local_1[2];
 chk_local_1[0] = gethrtime();
 #ifdef _KERNEL
@@ -4129,7 +4128,12 @@ chk_local_1[0] = gethrtime();
 #endif
 chk_local_1[1] = gethrtime();
 calclock(chk_local_1, &chk_t_1, &chk_c_1);
-
+*/
+//#ifdef _KERNEL
+//	if(zio->chksm == 1)
+//		printk(KERN_WARNING "BARRIER_zio_ready\n");
+//#endif
+	
 hrtime_t ii_local[2];
 ii_local[0] = gethrtime();
 
@@ -4623,8 +4627,25 @@ calclock(m_local, &m_t, &m_c);
 		zio->io_executor = NULL;
 		cv_broadcast(&zio->io_cv);
 		mutex_exit(&zio->io_lock);
-	} else {
+	} 
+	else {
 		zio_destroy(zio);
+		/*
+		if(zio->chksm != 1)
+			zio_destroy(zio);
+		else{
+#ifdef _KERNEL
+			if(zio->chksm == 1){
+				while(zio->chksm !=2){
+					if(zio->chksm == 2)
+						break;
+					barrier();
+				}
+			}
+#endif
+			zio_destroy(zio);
+		}
+		*/
 	}
 
 m_local[1] = gethrtime();

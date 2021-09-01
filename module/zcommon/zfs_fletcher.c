@@ -800,10 +800,16 @@ abd_fletcher_4_fini(zio_abd_checksum_data_t *cdp)
 
 	ASSERT(ops);
 
+
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "Func:%pF\n", ops->fini_native);
+//#endif
+
 	if (cdp->acd_byteorder == ZIO_CHECKSUM_NATIVE)
 		ops->fini_native(cdp->acd_ctx, cdp->acd_zcp);
 	else
 		ops->fini_byteswap(cdp->acd_ctx, cdp->acd_zcp);
+		
 }
 
 static void

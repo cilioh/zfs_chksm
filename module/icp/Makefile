@@ -1,5 +1,5 @@
-src = /home/kau/zfs_chksm/module/icp
-obj = /home/kau/zfs_chksm/module/icp
+src = /mnt/pm1/home/kau/zfs_chksm/module/icp
+obj = /mnt/pm1/home/kau/zfs_chksm/module/icp
 
 MODULE := icp
 

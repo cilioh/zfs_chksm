@@ -1,5 +1,5 @@
-src = /home/kau/zfs_chksm/module/zfs
-obj = /home/kau/zfs_chksm/module/zfs
+src = /mnt/pm1/home/kau/zfs_chksm/module/zfs
+obj = /mnt/pm1/home/kau/zfs_chksm/module/zfs
 
 MODULE := zfs
 

@@ -1,5 +1,5 @@
-src = /home/kau/zfs_chksm/module/unicode
-obj = /home/kau/zfs_chksm/module/unicode
+src = /mnt/pm1/home/kau/zfs_chksm/module/unicode
+obj = /mnt/pm1/home/kau/zfs_chksm/module/unicode
 
 MODULE := zunicode
 

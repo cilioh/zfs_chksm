@@ -127,7 +127,9 @@
 #endif
 
 //JW
-#include "/home/kau/zfs/include/hr_calclock.h"
+//#include "/home/kau/zfs/include/hr_calclock.h"
+#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+
 
 typedef struct abd_stats {
 	kstat_named_t abdstat_struct_size;
@@ -1119,7 +1121,6 @@ abd_iterate_func(abd_t *abd, size_t off, size_t size,
 	abd_iter_advance(&aiter, off);
 hrtime_t aabd_local[2];
 aabd_local[0] = gethrtime();
-	
 	while (size > 0) {
 		size_t len;
 		abd_iter_map(&aiter);

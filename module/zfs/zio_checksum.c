@@ -35,7 +35,9 @@
 
 
 //JW
-#include "/home/kau/zfs/include/hr_calclock.h"
+//#include "/home/kau/zfs/include/hr_calclock.h"
+#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+
 
 /*
  * Checksum vectors.
@@ -131,6 +133,9 @@ abd_fletcher_4_impl(abd_t *abd, uint64_t size, zio_abd_checksum_data_t *acdp)
 hrtime_t abd_c_local[2];
 abd_c_local[0] = gethrtime();
 //JW0124: removing checksum function
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "FLETCHER\n");
+//#endif
 	abd_iterate_func(abd, 0, size, fletcher_4_abd_ops.acf_iter, acdp);
 abd_c_local[1] = gethrtime();
 calclock(abd_c_local, &abd_c_t, &abd_c_c);
@@ -335,7 +340,11 @@ zio_checksum_compute(zio_t *zio, enum zio_checksum checksum,
 hrtime_t eea_local[2];
 eea_local[0] = gethrtime();
 	static const uint64_t zec_magic = ZEC_MAGIC;
-	blkptr_t *bp = zio->io_bp;
+	//blkptr_t *bp = zio->io_bp;
+	blkptr_t *bp = zio->jw_io_bp;
+	//blkptr_t *bp;
+	//BP_ZERO(bp);
+	
 	uint64_t offset = zio->io_offset;
 	zio_checksum_info_t *ci = &zio_checksum_table[checksum];
 	zio_cksum_t cksum;
@@ -346,17 +355,18 @@ eea_local[0] = gethrtime();
 
 	ASSERT((uint_t)checksum < ZIO_CHECKSUM_FUNCTIONS);
 	ASSERT(ci->ci_func[0] != NULL);
-
 	zio_checksum_template_init(checksum, spa);
 eea_local[1] = gethrtime();
 calclock(eea_local, &eea_t, &eea_c);
 hrtime_t eeb_local[2];
 eeb_local[0] = gethrtime();
-
 	if (ci->ci_flags & ZCHECKSUM_FLAG_EMBEDDED) {
 		zio_eck_t eck;
 		size_t eck_offset;
 
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "BB\n");
+//#endif
 hrtime_t eec_local[2];
 eec_local[0] = gethrtime();
 		if (checksum == ZIO_CHECKSUM_ZILOG2) {
@@ -376,6 +386,10 @@ calclock(eec_local, &eec_t, &eec_c);
 hrtime_t eed_local[2];
 eed_local[0] = gethrtime();
 //dprintf("[%u][bbb]\n", zio->id);
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "CC\n");
+//#endifa
+
 		if (checksum == ZIO_CHECKSUM_GANG_HEADER) {
 			zio_checksum_gang_verifier(&eck.zec_cksum, bp);
 			abd_copy_from_buf_off(abd, &eck.zec_cksum,
@@ -391,8 +405,12 @@ eed_local[0] = gethrtime();
 			bp->blk_cksum = eck.zec_cksum;
 			//blk_cksum_tmp = eck.zec_cksum;
 		}
+		
 eed_local[1] = gethrtime();
 calclock(eed_local, &eed_t, &eed_c);
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "DD\n");
+//#endif
 hrtime_t eee_local[2];
 eee_local[0] = gethrtime();
 //dprintf("[%u][ccc]\n", zio->id);
@@ -408,13 +426,19 @@ eee_local[0] = gethrtime();
 		    sizeof (zio_cksum_t));
 eee_local[1] = gethrtime();
 calclock(eee_local, &eee_t, &eee_c);
-
-	} else {
+	}
+	else {
 hrtime_t eef_local[2];
 eef_local[0] = gethrtime();
 //dprintf("[%u][ddd]\n", zio->id);
 //JW: calling abd_fletcher_4_native function
-		//JW0628	
+		//JW0628
+//#ifdef _KERNEL
+//	//if(zio->yy != 0)
+	//printk(KERN_WARNING "func:%pF [%d][%lld][%lld]\n", ci->ci_func[0], zio->id, bp->blk_cksum.zc_word[1], zio->jw_io_bp->blk_cksum.zc_word[1]);
+//#endif
+		//abd_fletcher_4_native(abd, size, spa->spa_cksum_tmpls[checksum],
+		//	&bp->blk_cksum);
 		ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
 		    &bp->blk_cksum);
 
@@ -423,9 +447,14 @@ eef_local[0] = gethrtime();
 	
 eef_local[1] = gethrtime();
 calclock(eef_local, &eef_t, &eef_c);
-
-
 	}
+	//JW
+//#ifdef _KERNEL
+	//if(zio->yy != 0)
+//	printk(KERN_WARNING "FREE [%d][%d]\n", zio->id, zio->yy);
+//#endif
+	
+	abd_free(zio->jw_io_abd);
 eeb_local[1] = gethrtime();
 calclock(eeb_local, &eeb_t, &eeb_c);
 //dprintf("[%u][eee]\n", zio->id);

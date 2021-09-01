@@ -203,7 +203,9 @@
 
 
 //JW
-#include "/home/kau/zfs/include/hr_calclock.h"
+//#include "/home/kau/zfs/include/hr_calclock.h"
+#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+
 //#include <linux/kernel.h>
 //#include <linux/module.h>
 //#include <linux/init.h>

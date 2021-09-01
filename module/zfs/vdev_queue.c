@@ -501,7 +501,7 @@ vdev_queue_agg_io_done(zio_t *aio)
 			    0, pio->io_offset - aio->io_offset, pio->io_size);
 		}
 	}
-
+//JW
 	abd_free(aio->io_abd);
 }
 

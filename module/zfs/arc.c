@@ -295,7 +295,8 @@ boolean_t arc_watch = B_FALSE;
 #endif
 
 //JW
-#include "/home/kau/zfs/include/hr_calclock.h"
+//#include "/home/kau/zfs/include/hr_calclock.h"
+#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
 
 static kmutex_t		arc_reclaim_lock;
 static kcondvar_t	arc_reclaim_thread_cv;
@@ -1484,6 +1485,9 @@ arc_cksum_is_equal(arc_buf_hdr_t *hdr, zio_t *zio)
 			bzero((char *)cbuf + csize, HDR_GET_PSIZE(hdr) - csize);
 			csize = HDR_GET_PSIZE(hdr);
 		}
+#ifdef _KERNEL
+		printk(KERN_WARNING "push_0\n");
+#endif
 		zio_push_transform(zio, cbuf, csize, HDR_GET_PSIZE(hdr), NULL);
 	}
 
@@ -1503,6 +1507,9 @@ arc_cksum_is_equal(arc_buf_hdr_t *hdr, zio_t *zio)
 	valid_cksum = (zio_checksum_error_impl(zio->io_spa, zio->io_bp,
 	    BP_GET_CHECKSUM(zio->io_bp), zio->io_abd, zio->io_size,
 	    zio->io_offset, NULL) == 0);
+#ifdef _KERNEL
+		printk(KERN_WARNING "pop_0\n");
+#endif
 	zio_pop_transforms(zio);
 	return (valid_cksum);
 }
@@ -6075,7 +6082,6 @@ arc_write_done(zio_t *zio)
 	arc_buf_hdr_t *hdr = buf->b_hdr;
 
 	ASSERT3P(hdr->b_l1hdr.b_acb, ==, NULL);
-
 	if (zio->io_error == 0) {
 		arc_hdr_verify(hdr, zio->io_bp);
 
@@ -6089,27 +6095,31 @@ arc_write_done(zio_t *zio)
 		ASSERT(HDR_EMPTY(hdr));
 	}
 
-	/*
-	 * If the block to be written was all-zero or compressed enough to be
-	 * embedded in the BP, no write was performed so there will be no
-	 * dva/birth/checksum.  The buffer must therefore remain anonymous
-	 * (and uncached).
-	 */
+	
+	 // If the block to be written was all-zero or compressed enough to be
+	 // embedded in the BP, no write was performed so there will be no
+	 // dva/birth/checksum.  The buffer must therefore remain anonymous
+	 // (and uncached).
+
+ //worked
 	if (!HDR_EMPTY(hdr)) {
 		arc_buf_hdr_t *exists;
 		kmutex_t *hash_lock;
 
 		ASSERT3U(zio->io_error, ==, 0);
-
+		//JW
 		arc_cksum_verify(buf);
 
 		exists = buf_hash_insert(hdr, &hash_lock);
+		//JW
+//#ifdef _KERNEL
+//		printk(KERN_WARNING "AAA\n");
+//#endif
 		if (exists != NULL) {
-			/*
-			 * This can only happen if we overwrite for
-			 * sync-to-convergence, because we remove
-			 * buffers from the hash table when we arc_free().
-			 */
+			 // This can only happen if we overwrite for
+			 // sync-to-convergence, because we remove
+			 // buffers from the hash table when we arc_free().
+			 //
 			if (zio->io_flags & ZIO_FLAG_IO_REWRITE) {
 				if (!BP_EQUAL(&zio->io_bp_orig, zio->io_bp))
 					panic("bad overwrite, hdr=%p exists=%p",
@@ -6122,13 +6132,13 @@ arc_write_done(zio_t *zio)
 				exists = buf_hash_insert(hdr, &hash_lock);
 				ASSERT3P(exists, ==, NULL);
 			} else if (zio->io_flags & ZIO_FLAG_NOPWRITE) {
-				/* nopwrite */
+				// nopwrite
 				ASSERT(zio->io_prop.zp_nopwrite);
 				if (!BP_EQUAL(&zio->io_bp_orig, zio->io_bp))
 					panic("bad nopwrite, hdr=%p exists=%p",
 					    (void *)hdr, (void *)exists);
 			} else {
-				/* Dedup */
+				// Dedup 
 				ASSERT(hdr->b_l1hdr.b_bufcnt == 1);
 				ASSERT(hdr->b_l1hdr.b_state == arc_anon);
 				ASSERT(BP_GET_DEDUP(zio->io_bp));
@@ -6136,7 +6146,7 @@ arc_write_done(zio_t *zio)
 			}
 		}
 		arc_hdr_clear_flags(hdr, ARC_FLAG_IO_IN_PROGRESS);
-		/* if it's not anon, we are doing a scrub */
+		// if it's not anon, we are doing a scrub 
 		if (exists == NULL && hdr->b_l1hdr.b_state == arc_anon)
 			arc_access(hdr, hash_lock);
 		mutex_exit(hash_lock);
@@ -6145,8 +6155,25 @@ arc_write_done(zio_t *zio)
 	}
 
 	ASSERT(!zfs_refcount_is_zero(&hdr->b_l1hdr.b_refcnt));
-	callback->awcb_done(zio, buf, callback->awcb_private);
 
+
+//worked
+#ifdef _KERNEL
+	if(zio->chksm == 1) {
+		//printk(KERN_WARNING "entering [%d][%d]\n", zio->id, zio->chksm);
+		while(zio->chksm != 2) {
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "func: %pF\n", callback->awcb_done);
+//#endif
+	
+	callback->awcb_done(zio, buf, callback->awcb_private);
+	//JW
 	abd_put(zio->io_abd);
 	kmem_free(callback, sizeof (arc_write_callback_t));
 }

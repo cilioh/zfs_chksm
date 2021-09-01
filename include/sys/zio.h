@@ -436,6 +436,9 @@ struct zio {
 	struct abd	*io_abd;
 	//JW
 	struct abd	*jw_io_abd;
+	uint64_t	jw_io_size;
+	blkptr_t	*jw_io_bp;
+
 	struct abd	*io_orig_abd;
 	uint64_t	io_size;
 	uint64_t	io_orig_size;

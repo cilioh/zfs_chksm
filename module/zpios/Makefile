@@ -1,5 +1,5 @@
-src = /home/kau/zfs_chksm/module/zpios
-obj = /home/kau/zfs_chksm/module/zpios
+src = /mnt/pm1/home/kau/zfs_chksm/module/zpios
+obj = /mnt/pm1/home/kau/zfs_chksm/module/zpios
 
 MODULE := zpios
 

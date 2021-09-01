@@ -45,7 +45,10 @@
 #include <sys/abd.h>
 
 //JW
-#include "/home/kau/zfs/include/hr_calclock.h"
+//#include "/home/kau/zfs/include/hr_calclock.h"
+#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+
+
 //#include <sys/dmu.h>
 //#include <sys/dsl_destroy.h>
 //#include <linux/miscdevice.h>
@@ -376,20 +379,32 @@ zio_push_transform(zio_t *zio, abd_t *data, uint64_t size, uint64_t bufsize,
 void
 zio_pop_transforms(zio_t *zio)
 {
+	/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		//printk(KERN_WARNING "HERE!!\n");
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+	
+#endif
+*/
 	zio_transform_t *zt;
-
 	while ((zt = zio->io_transform_stack) != NULL) {
-		if (zt->zt_transform != NULL)
+		if (zt->zt_transform != NULL){
 			zt->zt_transform(zio,
 			    zt->zt_orig_abd, zt->zt_orig_size);
-
-		if (zt->zt_bufsize != 0)
+		}
+		if (zt->zt_bufsize != 0){
 			abd_free(zio->io_abd);
-
+		}
 		zio->io_abd = zt->zt_orig_abd;
 		zio->io_size = zt->zt_orig_size;
 		zio->io_transform_stack = zt->zt_next;
-
+	
 		kmem_free(zt, sizeof (zio_transform_t));
 	}
 }
@@ -736,6 +751,10 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 			pipeline |= ZIO_GANG_STAGES;
 	}
 	//JW_chk
+	blkptr_t blk;
+	BP_ZERO(&blk);
+	zio->jw_io_bp = &blk;
+	//BP_ZERO(zio->jw_io_bp);
 	zio->chksm = 0;
 #ifdef _KERNEL
 	zio->id = (unsigned int)xxx;
@@ -753,7 +772,11 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 	zio->io_orig_abd = zio->io_abd = data;
 	//JW
 	//memcpy(zio->jw_io_abd, data, sizeof(abd_t));
-	zio->jw_io_abd = data;
+	//abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, psize);
+	//abd_copy(jw_buf, zio->io_abd, zio->io_size);
+	//zio->jw_io_abd = jw_buf;
+	//zio->jw_io_size = psize;
+
 	zio->io_orig_size = zio->io_size = psize;
 	zio->io_lsize = lsize;
 	zio->io_orig_flags = zio->io_flags = flags;
@@ -1148,20 +1171,26 @@ zio_write_phys(zio_t *pio, vdev_t *vd, uint64_t offset, uint64_t size,
 	    offset, NULL, ZIO_STAGE_OPEN, ZIO_WRITE_PHYS_PIPELINE);
 
 	zio->io_prop.zp_checksum = checksum;
-
 	if (zio_checksum_table[checksum].ci_flags & ZCHECKSUM_FLAG_EMBEDDED) {
-		/*
-		 * zec checksums are necessarily destructive -- they modify
-		 * the end of the write buffer to hold the verifier/checksum.
-		 * Therefore, we must make a local copy in case the data is
-		 * being written to multiple places in parallel.
-		 */
+		 // zec checksums are necessarily destructive -- they modify
+		 // the end of the write buffer to hold the verifier/checksum.
+		 // Therefore, we must make a local copy in case the data is
+		 // being written to multiple places in parallel.
+		 //
 		abd_t *wbuf = abd_alloc_sametype(data, size);
 		abd_copy(wbuf, data, size);
-
+//#ifdef _KERNEL
+//		printk(KERN_WARNING "push_1 [%d][%d]\n", zio->id, zio->yy);
+//#endif
 		zio_push_transform(zio, wbuf, size, size, NULL);
-	}
 
+		//abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
+		//abd_copy(jw_buf, zio->io_abd, zio->io_size);
+		//zio->jw_io_abd = jw_buf;
+		//zio->jw_io_size = zio->io_size;
+
+		zio->yy = 777;
+	}
 	return (zio);
 }
 
@@ -1297,6 +1326,10 @@ zio_read_bp_init(zio_t *zio)
 	    !(zio->io_flags & ZIO_FLAG_RAW)) {
 		uint64_t psize =
 		    BP_IS_EMBEDDED(bp) ? BPE_GET_PSIZE(bp) : BP_GET_PSIZE(bp);
+//compression being on
+#ifdef _KERNEL
+		printk(KERN_WARNING "push_2 [%d]\n", zio->id);
+#endif
 		zio_push_transform(zio, abd_alloc_sametype(zio->io_abd, psize),
 		    psize, psize, zio_decompress);
 	}
@@ -1396,6 +1429,25 @@ calclock(aa_local, &aa_t, &aa_c);
 	}
 aa_local[1] = gethrtime();
 calclock(aa_local, &aa_t, &aa_c);	
+
+	blkptr_t *jw_io_bp = zio->jw_io_bp;
+	blkptr_t *io_bp = zio->io_bp;
+	int d;
+	if(io_bp != NULL) {
+		for (d = 0; d < SPA_DVAS_PER_BP; d++)
+			jw_io_bp->blk_dva[d] = io_bp->blk_dva[d];
+		jw_io_bp->blk_prop = io_bp->blk_prop;
+		jw_io_bp->blk_phys_birth = io_bp->blk_phys_birth;
+		jw_io_bp->blk_birth = io_bp->blk_birth;
+		jw_io_bp->blk_fill = io_bp->blk_fill;
+		for (d = 0; d < 4; d++)
+			jw_io_bp->blk_cksum.zc_word[d] = io_bp->blk_cksum.zc_word[d];
+	}
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "making BP [%d][%lld]\n", zio->id, jw_io_bp->blk_cksum.zc_word[1]);
+//#endif
+	
+
 	return (zio);
 }
 
@@ -1410,6 +1462,9 @@ zio_write_compress(zio_t *zio)
 	uint64_t lsize = zio->io_lsize;
 	uint64_t psize = zio->io_size;
 	int pass = 1;
+
+	//JW
+	compress = ZIO_COMPRESS_OFF;
 
 hrtime_t dd_local[2];
 dd_local[0] = gethrtime();
@@ -1516,6 +1571,10 @@ calclock(dd_local, &dd_t, &dd_c);
 				abd_take_ownership_of_buf(cdata, B_TRUE);
 				abd_zero_off(cdata, psize, rounded - psize);
 				psize = rounded;
+//compression being on
+#ifdef _KERNEL
+		printk(KERN_WARNING "push_3 [%d] %d\n", zio->id, compress);
+#endif
 				zio_push_transform(zio, cdata,
 				    psize, lsize, NULL);
 			}
@@ -1736,7 +1795,41 @@ chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 	taskq_init_ent(&new_zio->chksm_io_tqent);
 	new_zio->id = zio->id;
 
-	chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, new_zio, flags, &new_zio->chksm_io_tqent, new_zio->id);
+	//zio->io_bp, io_prop, io_child_type, io_abd, io_size
+	//new_zio->io_bp = zio->io_bp;
+	//if(zio->io_bp != NULL)
+	//	memcpy(new_zio->io_bp, &zio->io_bp, sizeof(zio->io_bp));
+	new_zio->io_prop = zio->io_prop;
+	new_zio->io_child_type = zio->io_child_type;
+	//new_zio->io_abd = zio->io_abd;
+	//if(zio->io_abd != NULL)
+	//	memcpy(new_zio->io_abd, &zio->io_abd, sizeof(zio->io_abd));
+	new_zio->io_size = zio->io_size;
+
+/*
+#ifdef _KERNEL
+	printk(KERN_WARNING "BEFORE [%lu]\n", new_zio->id);
+#endif
+	
+	
+	if(zio->io_bp != NULL)
+		memcpy(new_zio->io_bp, &zio->io_bp, sizeof(zio->io_bp));
+	else
+		new_zio->io_bp = NULL;
+	//if(zio->io_abd != NULL)
+	//	memcpy(new_zio->io_abd, &zio->io_abd, sizeof(zio->io_abd));
+	//else
+		new_zio->io_abd = NULL;
+	
+#ifdef _KERNEL
+	printk(KERN_WARNING "MEMCPY [%lu]\n", new_zio->id);
+#endif
+*/	
+		
+	//chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, new_zio, flags, &new_zio->chksm_io_tqent, new_zio->id);
+	chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, zio, flags, &zio->chksm_io_tqent, zio->id);
+	
+	//zio->chksm = 2;
 }
 
 
@@ -2031,6 +2124,56 @@ calclock(a_local, &a_t, &a_c);
 			zio->chksm = 1;
 			//dprintf("[%u] chksm:%d tq_name:%s tq_nthreads:%d tq_nactive:%d \n", zio->id, zio->chksm, tq->tq_name, tq->tq_nthreads, tq->tq_nactive);
 			//chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_TRUE);
+			abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
+			abd_copy(jw_buf, zio->io_abd, zio->io_size);
+			zio->jw_io_abd = jw_buf;
+			zio->jw_io_size = zio->io_size;
+
+			//ddt_bp_create
+			/*
+			if(zio->io_bp != NULL){
+				ddt_t *ddt = ddt_select(zio->io_spa, zio->io_bp);
+				ddt_entry_t *dde = ddt_repair_start(ddt, zio->io_bp);
+				ddt_phys_t *ddp = dde->dde_phys;
+				ddt_bp_create(ddt->ddt_checksum, &dde->dde_key, ddp, zio->jw_io_bp); 
+			
+#ifdef _KERNEL
+				printk(KERN_WARNING "making BP [%d]\n", zio->id);
+#endif
+			}
+			*/
+			/*
+			blkptr_t *jw_io_bp = zio->jw_io_bp;
+			blkptr_t *io_bp = zio->io_bp;
+			//BP_ZERO(zio->jw_io_bp);
+			int d;
+			if(io_bp != NULL) {
+				for (d = 0; d < 4; d++)
+					jw_io_bp->blk_cksum.zc_word[d] = io_bp->blk_cksum.zc_word[d];
+			}
+			*/
+/*
+			if(io_bp != NULL){
+				for (d = 0; d < SPA_DVAS_PER_BP; d++)
+					jw_io_bp->blk_dva[d] = io_bp->blk_dva[d];
+				jw_io_bp->blk_prop = io_bp->blk_prop;
+				jw_io_bp->blk_pad[0] = io_bp->blk_pad[0];
+				jw_io_bp->blk_pad[1] = io_bp->blk_pad[1];
+				jw_io_bp->blk_phys_birth = io_bp->blk_phys_birth;
+				jw_io_bp->blk_birth = io_bp->blk_birth;
+				jw_io_bp->blk_fill = io_bp->blk_fill;
+				zio_cksum_t jw_blk_cksum = jw_io_bp->blk_cksum;
+				zio_cksum_t blk_cksum = io_bp->blk_cksum;
+				for (d = 0; d < 4; d++)
+					jw_blk_cksum.zc_word[d] = blk_cksum.zc_word[d];
+			}
+*/
+//#ifdef _KERNEL
+//				printk(KERN_WARNING "making BP [%d][%lld]\n", zio->id, jw_io_bp->blk_cksum.zc_word[1]);
+//#endif
+	
+
+			//memcpy(zio->jw_io_bp, zio->io_bp, sizeof(blkptr_t));
 			chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_FALSE);
 			stage <<= 1;
 		}
@@ -2119,7 +2262,11 @@ c_local[0] = gethrtime();
 	
 	mutex_exit(&zio->io_lock);
 	error = zio->io_error;
-	zio_destroy(zio);
+//#ifdef _KERNEL
+//		printk(KERN_WARNING "zio_wait id:%lu\n", zio->id);
+//#endif
+	
+	//zio_destroy(zio);
 	/*
 	if(zio->chksm != 1)
 		zio_destroy(zio);
@@ -3175,6 +3322,9 @@ zio_ddt_write(zio_t *zio)
 		if (!(zio_checksum_table[zp->zp_checksum].ci_flags &
 		    ZCHECKSUM_FLAG_DEDUP)) {
 			zp->zp_checksum = spa_dedup_checksum(spa);
+//#ifdef _KERNEL
+//			printk(KERN_WARNING "pop_1\n");
+//#endif
 			zio_pop_transforms(zio);
 			zio->io_stage = ZIO_STAGE_OPEN;
 			BP_ZERO(bp);
@@ -3203,6 +3353,9 @@ zio_ddt_write(zio_t *zio)
 		 * optimization; and it's rare, so the cost doesn't matter.
 		 */
 		if (zio->io_bp_override) {
+//#ifdef _KERNEL
+//			printk(KERN_WARNING "pop_2\n");
+//#endif
 			zio_pop_transforms(zio);
 			zio->io_stage = ZIO_STAGE_OPEN;
 			zio->io_pipeline = ZIO_WRITE_PIPELINE;
@@ -3216,7 +3369,9 @@ zio_ddt_write(zio_t *zio)
 		    zio->io_orig_size, zio->io_orig_size, &czp, NULL, NULL,
 		    NULL, zio_ddt_ditto_write_done, dde, zio->io_priority,
 		    ZIO_DDT_CHILD_FLAGS(zio), &zio->io_bookmark);
-
+#ifdef _KERNEL
+		printk(KERN_WARNING "push_4\n");
+#endif
 		zio_push_transform(dio, zio->io_abd, zio->io_size, 0, NULL);
 		dde->dde_lead_zio[DDT_PHYS_DITTO] = dio;
 	}
@@ -3239,7 +3394,9 @@ zio_ddt_write(zio_t *zio)
 		    zio_ddt_child_write_ready, NULL, NULL,
 		    zio_ddt_child_write_done, dde, zio->io_priority,
 		    ZIO_DDT_CHILD_FLAGS(zio), &zio->io_bookmark);
-
+#ifdef _KERNEL
+		printk(KERN_WARNING "push_5\n");
+#endif
 		zio_push_transform(cio, zio->io_abd, zio->io_size, 0, NULL);
 		dde->dde_lead_zio[p] = cio;
 	}
@@ -3370,7 +3527,7 @@ zio_allocate_dispatch(spa_t *spa)
 	ASSERT3U(zio->io_stage, ==, ZIO_STAGE_DVA_THROTTLE);
 	ASSERT0(zio->io_error);
 	//JW0501
-	/*
+/*
 hrtime_t chk_local[2];
 chk_local[0] = gethrtime();
 #ifdef _KERNEL
@@ -3581,6 +3738,7 @@ jj_local[0] = gethrtime();
 	ASSERT(zio->io_error == 0);
 	ASSERT(zio->io_child_error[ZIO_CHILD_VDEV] == 0);
 
+
 	if (vd == NULL) {
 		if (!(zio->io_flags & ZIO_FLAG_CONFIG_WRITER))
 			spa_config_enter(spa, SCL_ZIO, zio, RW_READER);
@@ -3618,6 +3776,7 @@ calclock(jj_local, &jj_t, &jj_c);
 
 	align = 1ULL << vd->vdev_top->vdev_ashift;
 
+
 	if (!(zio->io_flags & ZIO_FLAG_PHYSICAL) &&
 	    P2PHASE(zio->io_size, align) != 0) {
 		/* Transform logical writes to be a full physical block size. */
@@ -3628,6 +3787,9 @@ calclock(jj_local, &jj_t, &jj_c);
 			abd_copy(abuf, zio->io_abd, zio->io_size);
 			abd_zero_off(abuf, zio->io_size, asize - zio->io_size);
 		}
+#ifdef _KERNEL
+		printk(KERN_WARNING "push_6\n");
+#endif
 		zio_push_transform(zio, abuf, asize, asize, zio_subblock);
 	}
 
@@ -3648,6 +3810,17 @@ calclock(jj_local, &jj_t, &jj_c);
 	}
 
 	VERIFY(zio->io_type != ZIO_TYPE_WRITE || spa_writeable(spa));
+/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+*/
 
 	/*
 	 * If this is a repair I/O, and there's no self-healing involved --
@@ -3690,29 +3863,6 @@ calclock(jj_local, &jj_t, &jj_c);
 		zio->io_delay = gethrtime();
 	}
 
-
-//JW_chk
-/*
-	xx=0;
-hrtime_t xx_local[2];
-xx_local[0] = gethrtime();
-	if(zio->chksm != 0){
-		while(zio->chksm != 2){
-			//if(xx%1000000000 == 0)
-			//	dprintf("[%u] waiting!.. %u chksm:%d \n", zio->id, xx, zio->chksm);
-			if(xx == 3000000000){
-				dprintf("[%u] passing!.. %u chksm:%d \n", zio->id, xx, zio->chksm);
-				break;
-			}
-			xx++;
-			//return (NULL);
-		}
-	}
-xx_local[1] = gethrtime();
-calclock(xx_local, &xx_t, &xx_c);	
-	if (xx != 0)
-		dprintf("[%u] out.. %u chksm:%d \n", zio->id, xx, zio->chksm);
-*/
 	vd->vdev_ops->vdev_op_io_start(zio);
 jj_local[1] = gethrtime();
 calclock(jj_local, &jj_t, &jj_c);	
@@ -3963,12 +4113,8 @@ chksm_zio_checksum_generate(zio_t *zio)
 //#ifdef _KERNEL
 //	printk(KERN_WARNING "ZIO HERE [%u]\n", zio->id);
 //#endif
-	kmem_cache_free(new_zio_cache, zio);
-
-	/*
 	blkptr_t *bp = zio->io_bp;
 	enum zio_checksum checksum;
-
 hrtime_t ee_local1[2];
 ee_local1[0] = gethrtime();
 	if (bp == NULL) {
@@ -3996,16 +4142,29 @@ calclock(ee_local1, &ee_t1, &ee_c1);
 //JW0124 : remove checksum
 //JW_chk
 //0330
-#ifdef _KERNEL
-	printk(KERN_WARNING "CHECKSUM [%d]\n", zio->id);
-#endif
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "CHECKSUM [%d]\n", zio->id);
+//#endif
+	//zio_checksum_compute(zio, checksum, abd_alloc_sametype(zio->io_abd, zio->io_size), zio->io_size);
+	/*abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
+	abd_copy(jw_buf, zio->io_abd, zio->io_size);
+	zio->jw_io_abd = jw_buf;
+	zio->jw_io_size = zio->io_size; */
+	zio_checksum_compute(zio, checksum, zio->jw_io_abd, zio->jw_io_size);
 	
-	//zio_checksum_compute(zio, checksum, zio->jw_io_abd, zio->io_size);
+	//zio_checksum_compute(zio, checksum, zio->io_abd, zio->io_size);
 	
 	zio->chksm = 2;
+	
+	//kmem_cache_free(new_zio_cache, zio);
+
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "CHECKSUM [%d]\n", zio->id);
+//#endif
+	
+
 ee_local1[1] = gethrtime();
 calclock(ee_local1, &ee_t1, &ee_c1);	
-*/
 	return (NULL);
 
 
@@ -4114,7 +4273,7 @@ zio_ready(zio_t *zio)
 	blkptr_t *bp = zio->io_bp;
 	zio_t *pio, *pio_next;
 	zio_link_t *zl = NULL;
-	/*
+/*
 hrtime_t chk_local_1[2];
 chk_local_1[0] = gethrtime();
 #ifdef _KERNEL
@@ -4128,12 +4287,7 @@ chk_local_1[0] = gethrtime();
 #endif
 chk_local_1[1] = gethrtime();
 calclock(chk_local_1, &chk_t_1, &chk_c_1);
-*/
-//#ifdef _KERNEL
-//	if(zio->chksm == 1)
-//		printk(KERN_WARNING "BARRIER_zio_ready\n");
-//#endif
-	
+*/	
 hrtime_t ii_local[2];
 ii_local[0] = gethrtime();
 
@@ -4144,7 +4298,6 @@ calclock(ii_local, &ii_t, &ii_c);
 
 		return (NULL);
 	}
-
 
 hrtime_t iib_local[2];
 iib_local[0] = gethrtime();
@@ -4161,7 +4314,6 @@ iiba_local[0] = gethrtime();
 iiba_local[1] = gethrtime();
 calclock(iiba_local, &iiba_t, &iiba_c);
 	}
-
 	
 	if (bp != NULL && bp != &zio->io_bp_copy)
 		zio->io_bp_copy = *bp;
@@ -4191,7 +4343,7 @@ calclock(iib_local, &iib_t, &iib_c);
 	pio = zio_walk_parents(zio, &zl);
 
 	mutex_exit(&zio->io_lock);
-	
+
 	/*
 	 * As we notify zio's parents, new parents could be added.
 	 * New parents go to the head of zio's io_parent_list, however,
@@ -4203,6 +4355,17 @@ calclock(iib_local, &iib_t, &iib_c);
 		pio_next = zio_walk_parents(zio, &zl);
 		zio_notify_parent(pio, zio, ZIO_WAIT_READY, NULL);
 	}
+/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+*/
 
 	if (zio->io_flags & ZIO_FLAG_NODATA) {
 		if (BP_IS_GANG(bp)) {
@@ -4281,6 +4444,17 @@ zio_dva_throttle_done(zio_t *zio)
 	 * needs to be done. If there is work to be done it will be
 	 * dispatched to another taskq thread.
 	 */
+	/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+	
+#endif*/
 	zio_allocate_dispatch(zio->io_spa);
 }
 
@@ -4297,6 +4471,7 @@ zio_done(zio_t *zio)
 	int c, w;
 	zio_link_t *zl = NULL;
 
+
 hrtime_t m_local[2];
 m_local[0] = gethrtime();
 	/*
@@ -4309,7 +4484,6 @@ calclock(m_local, &m_t, &m_c);
 	
 		return (NULL);
 	}
-
 	/*
 	 * If the allocation throttle is enabled, then update the accounting.
 	 * We only track child I/Os that are part of an allocating async
@@ -4322,7 +4496,6 @@ calclock(m_local, &m_t, &m_c);
 		    zio->io_spa)->mc_alloc_throttle_enabled);
 		zio_dva_throttle_done(zio);
 	}
-
 	/*
 	 * If the allocation throttle is enabled, verify that
 	 * we have decremented the refcounts for every I/O that was throttled.
@@ -4335,8 +4508,9 @@ calclock(m_local, &m_t, &m_c);
 		VERIFY(zfs_refcount_not_held(
 		    &(spa_normal_class(zio->io_spa)->mc_alloc_slots), zio));
 	}
-
-
+/*
+	//worked
+*/	
 	for (c = 0; c < ZIO_CHILD_TYPES; c++)
 		for (w = 0; w < ZIO_WAIT_TYPES; w++)
 			ASSERT(zio->io_children[c][w] == 0);
@@ -4360,7 +4534,7 @@ calclock(m_local, &m_t, &m_c);
 		if (zio->io_flags & ZIO_FLAG_NOPWRITE)
 			VERIFY(BP_EQUAL(zio->io_bp, &zio->io_bp_orig));
 	}
-
+// worked
 	/*
 	 * If there were child vdev/gang/ddt errors, they apply to us now.
 	 */
@@ -4394,11 +4568,26 @@ calclock(m_local, &m_t, &m_c);
 				abd_free(adata);
 		}
 	}
-
+// worked
+//#ifdef _KERNEL
+//			printk(KERN_WARNING "pop_3 [%d][%d]\n", zio->id, zio->yy);
+//#endif
 	zio_pop_transforms(zio);	/* note: may set zio->io_error */
-
+	zio->yy = 888;
+/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+	*/
+// not worked
 	vdev_stat_update(zio, psize);
-
+	
 	/*
 	 * If this I/O is attached to a particular vdev is slow, exceeding
 	 * 30 seconds to complete, post an error described the I/O delay.
@@ -4409,7 +4598,6 @@ calclock(m_local, &m_t, &m_c);
 			zfs_ereport_post(FM_EREPORT_ZFS_DELAY, zio->io_spa,
 			    zio->io_vd, zio, 0, 0);
 	}
-
 	if (zio->io_error) {
 		/*
 		 * If this I/O is attached to a particular vdev,
@@ -4434,7 +4622,7 @@ calclock(m_local, &m_t, &m_c);
 			    NULL, zio, 0, 0);
 		}
 	}
-
+	
 	if (zio->io_error && zio == zio->io_logical) {
 		/*
 		 * Determine whether zio should be reexecuted.  This will
@@ -4483,9 +4671,18 @@ calclock(m_local, &m_t, &m_c);
 	    IO_IS_ALLOCATING(zio) && zio->io_gang_leader == zio &&
 	    !(zio->io_flags & (ZIO_FLAG_IO_REWRITE | ZIO_FLAG_NOPWRITE)))
 		zio_dva_unallocate(zio, zio->io_gang_tree, zio->io_bp);
-
+/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+	*/
 	zio_gang_tree_free(&zio->io_gang_tree);
-
 	/*
 	 * Godfather I/Os should never suspend.
 	 */
@@ -4575,7 +4772,17 @@ calclock(m_local, &m_t, &m_c);
 	
 		return (NULL);
 	}
-
+	/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+	*/
 	ASSERT(zio->io_child_count == 0);
 	ASSERT(zio->io_reexecute == 0);
 	ASSERT(zio->io_error == 0 || (zio->io_flags & ZIO_FLAG_CANFAIL));
@@ -4596,18 +4803,35 @@ calclock(m_local, &m_t, &m_c);
 	    !(zio->io_flags & ZIO_FLAG_NOPWRITE)) {
 		metaslab_fastwrite_unmark(zio->io_spa, zio->io_bp);
 	}
-
+	/*
+#ifdef _KERNEL
+	if(zio->chksm == 1){
+		while(zio->chksm !=2){
+			if(zio->chksm == 2)
+				break;
+			barrier();
+		}
+	}
+#endif
+	*/
 	/*
 	 * It is the responsibility of the done callback to ensure that this
 	 * particular zio is no longer discoverable for adoption, and as
 	 * such, cannot acquire any new parents.
 	 */
-	if (zio->io_done)
+	if (zio->io_done){
+		//#ifdef _KERNEL
+			//printk(KERN_WARNING "zio_done [%d]\n", zio->id);
+		//	printk(KERN_WARNING "func: %pF\n", zio->io_done);
+		//#endif
 		zio->io_done(zio);
-
+	}
+//not worked
 	mutex_enter(&zio->io_lock);
 	zio->io_state[ZIO_WAIT_DONE] = 1;
 	mutex_exit(&zio->io_lock);
+	
+//not worked
 
 	/*
 	 * We are done executing this zio.  We may want to execute a parent
@@ -4629,7 +4853,10 @@ calclock(m_local, &m_t, &m_c);
 		mutex_exit(&zio->io_lock);
 	} 
 	else {
-		zio_destroy(zio);
+//#ifdef _KERNEL
+//		printk(KERN_WARNING "zio_done id:%lu\n", zio->id);
+//#endif
+		//zio_destroy(zio);
 		/*
 		if(zio->chksm != 1)
 			zio_destroy(zio);

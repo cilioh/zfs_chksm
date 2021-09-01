@@ -3,9 +3,11 @@
 
 
 #cd /home/kau/spl
+#cd /mnt/pm1/home/kau/spl
 #sh ./jw_make.sh
 
-cd /home/kau/zfs_chksm
+#cd /home/kau/zfs_chksm
+cd /mnt/pm1/home/kau/zfs_chksm
 
 
 rm -rf *.rpm
@@ -32,12 +34,14 @@ echo y | yum localinstall *.x86_64.rpm
 #cd /home/kau/lustre-release && make clean
 #cd /home/kau/lustre-release && make -j32 rpms
 
-cd /home/kau/lustre-release
+#cd /home/kau/lustre-release
+#cd /mnt/pm1/home/kau/lustre-release
 #./configure --enable-server --with-o2ib=/usr/src/ofa_kernel/default
 #make rpms
-echo y | yum localinstall *.x86_64.rpm
+#echo y | yum localinstall *.x86_64.rpm
 
 #echo y | yum localinstall ../lustre-release/lustre-osd-zfs-mount*
 #echo y | yum localinstall ../lustre-release/kmod-lustre-osd-zfs*
 
-cd /home/kau/zfs_chksm
+#cd /home/kau/zfs_chksm
+cd /mnt/pm1/home/kau/zfs_chksm

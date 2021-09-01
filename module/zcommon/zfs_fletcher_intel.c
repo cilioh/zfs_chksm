@@ -48,7 +48,8 @@
 #include <strings.h>
 
 //JW
-#include "/home/kau/zfs/include/hr_calclock.h"
+//#include "/home/kau/zfs/include/hr_calclock.h"
+#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
 static void
 fletcher_4_avx2_init(fletcher_4_ctx_t *ctx)
 {
@@ -80,7 +81,17 @@ fletcher_4_avx2_fini(fletcher_4_ctx_t *ctx, zio_cksum_t *zcp)
 	    64 * ctx->avx[3].v[1] + 64 * ctx->avx[3].v[2] +
 	    64 * ctx->avx[3].v[3];
 
-	ZIO_SET_CHECKSUM(zcp, A, B, C, D);
+	//zcp->zc_word[0] = A;
+	zcp->zc_word[1] = B;
+	//zcp->zc_word[2] = C;
+	//zcp->zc_word[3] = D;
+
+#ifdef _KERNEL
+	printk(KERN_WARNING "[Word] %lld\n", zcp->zc_word[1]);
+	printk(KERN_WARNING "%lld %lld %lld %lld\n", A, B, C, D);
+//	printk(KERN_WARNING "====================\n");
+#endif
+	//ZIO_SET_CHECKSUM(zcp, A, B, C, D);
 }
 
 #define	FLETCHER_4_AVX2_RESTORE_CTX(ctx)				\

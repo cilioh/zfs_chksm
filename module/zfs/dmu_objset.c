@@ -1283,6 +1283,7 @@ dmu_objset_write_done(zio_t *zio, arc_buf_t *abuf, void *arg)
 		(void) dsl_dataset_block_kill(ds, bp_orig, tx, B_TRUE);
 		dsl_dataset_block_born(ds, bp, tx);
 	}
+	//JW0824
 	kmem_free(bp, sizeof (*bp));
 }
 

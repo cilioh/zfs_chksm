@@ -412,6 +412,8 @@ struct zio {
 	uint64_t	io_txg;
 	spa_t		*io_spa;
 	blkptr_t	*io_bp;
+	//JW
+	blkptr_t	jw_io_bp;
 	blkptr_t	*io_bp_override;
 	blkptr_t	io_bp_copy;
 	list_t		io_parent_list;
@@ -437,7 +439,6 @@ struct zio {
 	//JW
 	struct abd	*jw_io_abd;
 	uint64_t	jw_io_size;
-	blkptr_t	*jw_io_bp;
 
 	struct abd	*io_orig_abd;
 	uint64_t	io_size;

@@ -1,5 +1,5 @@
-src = /mnt/pm1/home/kau/zfs_chksm/module/nvpair
-obj = /mnt/pm1/home/kau/zfs_chksm/module/nvpair
+src = /home/kau/zfs_chksm/module/nvpair
+obj = /home/kau/zfs_chksm/module/nvpair
 
 MODULE := znvpair
 

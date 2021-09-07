@@ -1,5 +1,5 @@
-src = /mnt/pm1/home/kau/zfs_chksm/module/avl
-obj = /mnt/pm1/home/kau/zfs_chksm/module/avl
+src = /home/kau/zfs_chksm/module/avl
+obj = /home/kau/zfs_chksm/module/avl
 
 MODULE := zavl
 

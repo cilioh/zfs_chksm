@@ -35,8 +35,8 @@
 
 
 //JW
-//#include "/home/kau/zfs/include/hr_calclock.h"
-#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+#include "/home/kau/zfs_chksm/include/hr_calclock.h"
+//#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
 
 
 /*
@@ -129,13 +129,14 @@ unsigned long long abd_c_t=0, abd_c_c=0;
 static inline void
 abd_fletcher_4_impl(abd_t *abd, uint64_t size, zio_abd_checksum_data_t *acdp)
 {
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "FLETCHER %pF %pF\n", fletcher_4_abd_ops.acf_init, fletcher_4_abd_ops.acf_fini);
+//#endif
+	
 	fletcher_4_abd_ops.acf_init(acdp);
 hrtime_t abd_c_local[2];
 abd_c_local[0] = gethrtime();
 //JW0124: removing checksum function
-//#ifdef _KERNEL
-//	printk(KERN_WARNING "FLETCHER\n");
-//#endif
 	abd_iterate_func(abd, 0, size, fletcher_4_abd_ops.acf_iter, acdp);
 abd_c_local[1] = gethrtime();
 calclock(abd_c_local, &abd_c_t, &abd_c_c);
@@ -341,10 +342,23 @@ hrtime_t eea_local[2];
 eea_local[0] = gethrtime();
 	static const uint64_t zec_magic = ZEC_MAGIC;
 	//blkptr_t *bp = zio->io_bp;
-	blkptr_t *bp = zio->jw_io_bp;
+	blkptr_t *bp = &zio->jw_io_bp;
 	//blkptr_t *bp;
 	//BP_ZERO(bp);
-	
+	//
+	/*
+#ifdef _KERNEL
+	if (ZIO_CHECKSUM_EQUAL(bp_orig->blk_cksum, bp->blk_cksum))
+		printk(KERN_WARNING "AA\n");
+	else{
+		printk(KERN_WARNING "BB\n");
+		(&bp->blk_cksum)->zc_word[0]=(&bp_orig->blk_cksum)->zc_word[0];
+		(&bp->blk_cksum)->zc_word[1]=(&bp_orig->blk_cksum)->zc_word[1];
+		(&bp->blk_cksum)->zc_word[2]=(&bp_orig->blk_cksum)->zc_word[2];
+		(&bp->blk_cksum)->zc_word[3]=(&bp_orig->blk_cksum)->zc_word[3];
+	}
+#endif
+*/
 	uint64_t offset = zio->io_offset;
 	zio_checksum_info_t *ci = &zio_checksum_table[checksum];
 	zio_cksum_t cksum;
@@ -433,14 +447,23 @@ eef_local[0] = gethrtime();
 //dprintf("[%u][ddd]\n", zio->id);
 //JW: calling abd_fletcher_4_native function
 		//JW0628
-//#ifdef _KERNEL
+		/*
+#ifdef _KERNEL
 //	//if(zio->yy != 0)
-	//printk(KERN_WARNING "func:%pF [%d][%lld][%lld]\n", ci->ci_func[0], zio->id, bp->blk_cksum.zc_word[1], zio->jw_io_bp->blk_cksum.zc_word[1]);
-//#endif
+//	printk(KERN_WARNING "func:%pF [%d][%lld][%lld]\n", ci->ci_func[0], zio->id, bp->blk_cksum.zc_word[1], zio->jw_io_bp->blk_cksum.zc_word[1]);
+	
+	if(bp != NULL)
+		printk(KERN_WARNING "[COM][%d] %lld %lld %lld %lld\n", zio->id, (&bp->blk_cksum)->zc_word[0], (&bp->blk_cksum)->zc_word[1], (&bp->blk_cksum)->zc_word[2], (&bp->blk_cksum)->zc_word[3]);
+#endif
+*/
 		//abd_fletcher_4_native(abd, size, spa->spa_cksum_tmpls[checksum],
 		//	&bp->blk_cksum);
+		//zio_cksum_t *zcp;
+		//ZIO_SET_CHECKSUM(zcp, 0, 0, 0, 0)
 		ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
 		    &bp->blk_cksum);
+		//ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
+		//    zcp);
 
 		//ci->ci_func[0](abd, size, spa->spa_cksum_tmpls[checksum],
 		//    &blk_cksum_tmp);

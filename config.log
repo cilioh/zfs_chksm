@@ -537,8 +537,8 @@ configure:28314: checking for zlib.h
 configure:28314: result: yes
 configure:28327: checking for library containing compress2
 configure:28358: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccFblfU4.o: In function `main':
-/mnt/pm1/home/kau/zfs_chksm/conftest.c:57: undefined reference to `compress2'
+/tmp/cc4kCiQv.o: In function `main':
+/home/kau/zfs_chksm/conftest.c:57: undefined reference to `compress2'
 collect2: error: ld returned 1 exit status
 configure:28358: $? = 1
 configure: failed program was:
@@ -625,8 +625,8 @@ configure:28525: checking for uuid/uuid.h
 configure:28525: result: yes
 configure:28538: checking for library containing uuid_generate
 configure:28569: gcc -o conftest -g -O2   conftest.c -lz  >&5
-/tmp/ccSaZdLu.o: In function `main':
-/mnt/pm1/home/kau/zfs_chksm/conftest.c:58: undefined reference to `uuid_generate'
+/tmp/ccc54PtL.o: In function `main':
+/home/kau/zfs_chksm/conftest.c:58: undefined reference to `uuid_generate'
 collect2: error: ld returned 1 exit status
 configure:28569: $? = 1
 configure: failed program was:
@@ -793,8 +793,8 @@ configure:28892: checking for libudev.h
 configure:28892: result: yes
 configure:28910: checking for library containing udev_device_get_is_initialized
 configure:28941: gcc -o conftest -g -O2   conftest.c -luuid -lz  >&5
-/tmp/ccZNPecY.o: In function `main':
-/mnt/pm1/home/kau/zfs_chksm/conftest.c:61: undefined reference to `udev_device_get_is_initialized'
+/tmp/ccpesb8h.o: In function `main':
+/home/kau/zfs_chksm/conftest.c:61: undefined reference to `udev_device_get_is_initialized'
 collect2: error: ld returned 1 exit status
 configure:28941: $? = 1
 configure: failed program was:
@@ -982,13 +982,13 @@ configure:29540: result: 0.7.13-1
 configure:29551: checking spl file name for module symbols
 configure:29592: result: Module.symvers
 configure:29690: checking whether access_ok() has 'type' parameter
-configure:29725: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:29725: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:29728: $? = 0
 configure:29730: test -s build/conftest.o
 configure:29733: $? = 0
 configure:29736: result: yes
 configure:29757: checking whether modules can be built
-configure:29786: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:29786: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:29789: $? = 0
 configure:29791: test -s build/conftest.o
 configure:29794: $? = 0
@@ -996,7 +996,7 @@ configure:29797: result: yes
 configure:29822: checking for available /dev/zfs minor
 configure:29829: result: 249
 configure:29848: checking for compile-time stack validation (objtool)
-configure:29884: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:29884: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:29887: $? = 0
 configure:29889: test -s build/conftest.o
 configure:29892: $? = 0
@@ -1078,19 +1078,19 @@ configure: failed program was:
 | }
 | 
 configure:29956: checking whether kernel was built with 16K or larger stacks
-configure:29991: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:29991: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:29994: $? = 0
 configure:29996: test -s build/conftest.o
 configure:29999: $? = 0
 configure:30002: result: yes
 configure:30024: checking whether kernel was built with CONFIG_DEBUG_LOCK_ALLOC
-configure:30059: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:66:4: error: #error CONFIG_DEBUG_LOCK_ALLOC not #defined
+configure:30059: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:66:4: error: #error CONFIG_DEBUG_LOCK_ALLOC not #defined
    #error CONFIG_DEBUG_LOCK_ALLOC not #defined
     ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:30062: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1167,7 +1167,7 @@ configure: failed program was:
 | 
 configure:30153: result: no
 configure:30170: checking whether DECLARE_EVENT_CLASS() is available
-configure:30241: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -I$(src)  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30241: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -I$(src)  M=/home/kau/zfs_chksm/build 
 FATAL: modpost: GPL-incompatible module conftest.ko uses GPL-only symbol 'trace_event_raw_init'
 make[1]: *** [__modpost] Error 1
 make: *** [modules] Error 2
@@ -1250,13 +1250,13 @@ configure: failed program was:
 | 
 configure:30262: result: no
 configure:30274: checking whether current->bio_tail exists
-configure:30307: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:65:10: error: ‘struct task_struct’ has no member named ‘bio_tail’
+configure:30307: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:65:10: error: ‘struct task_struct’ has no member named ‘bio_tail’
    current->bio_tail = (struct bio **) NULL;
           ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:30310: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1331,44 +1331,44 @@ configure: failed program was:
 | 
 configure:30328: result: no
 configure:30330: checking whether current->bio_list exists
-configure:30363: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30363: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:30366: $? = 0
 configure:30368: test -s build/conftest.o
 configure:30371: $? = 0
 configure:30374: result: yes
 configure:30402: checking whether super_block->s_user_ns exists
-configure:30437: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30437: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:30440: $? = 0
 configure:30442: test -s build/conftest.o
 configure:30445: $? = 0
 configure:30448: result: yes
 configure:30469: checking whether submit_bio() wants 1 arg
-configure:30504: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:67:3: error: unknown type name ‘blk_qc_t’
+configure:30504: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:67:3: error: unknown type name ‘blk_qc_t’
    blk_qc_t blk_qc;
    ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:69:3: error: passing argument 1 of ‘submit_bio’ makes integer from pointer without a cast [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:69:3: error: passing argument 1 of ‘submit_bio’ makes integer from pointer without a cast [-Werror]
    blk_qc = submit_bio(bio);
    ^
 In file included from include/linux/highmem.h:4:0,
                  from include/linux/bio.h:23,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:61:
+                 from /home/kau/zfs_chksm/build/conftest.c:61:
 include/linux/fs.h:2978:13: note: expected ‘int’ but argument is of type ‘struct bio *’
  extern void submit_bio(int, struct bio *);
              ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:69:3: error: too few arguments to function ‘submit_bio’
+/home/kau/zfs_chksm/build/conftest.c:69:3: error: too few arguments to function ‘submit_bio’
    blk_qc = submit_bio(bio);
    ^
 In file included from include/linux/highmem.h:4:0,
                  from include/linux/bio.h:23,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:61:
+                 from /home/kau/zfs_chksm/build/conftest.c:61:
 include/linux/fs.h:2978:13: note: declared here
  extern void submit_bio(int, struct bio *);
              ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:30507: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1447,44 +1447,44 @@ configure: failed program was:
 | 
 configure:30525: result: no
 configure:30536: checking whether bops->check_events() exists
-configure:30578: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30578: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:30581: $? = 0
 configure:30583: test -s build/conftest.o
 configure:30586: $? = 0
 configure:30589: result: yes
 configure:30611: checking whether bops->release() is void
-configure:30655: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30655: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:30658: $? = 0
 configure:30660: test -s build/conftest.o
 configure:30663: $? = 0
 configure:30666: result: void
 configure:30687: checking whether kernel defines fmode_t
-configure:30720: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30720: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:30723: $? = 0
 configure:30725: test -s build/conftest.o
 configure:30728: $? = 0
 configure:30731: result: yes
 configure:30752: checking whether blkdev_get() wants 3 args
-configure:30786: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30786: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:30789: $? = 0
 configure:30791: test -s build/conftest.o
 configure:30794: $? = 0
 configure:30797: result: yes
 configure:30817: checking whether blkdev_get_by_path() is available
-configure:30851: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:30851: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:30854: $? = 0
 configure:30856: test -s build/conftest.o
 configure:30859: $? = 0
 configure:30911: result: yes
 configure:30921: checking whether open_bdev_exclusive() is available
-configure:30955: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:72:3: error: implicit declaration of function ‘open_bdev_exclusive’ [-Werror=implicit-function-declaration]
+configure:30955: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:72:3: error: implicit declaration of function ‘open_bdev_exclusive’ [-Werror=implicit-function-declaration]
    open_bdev_exclusive(NULL, 0, NULL);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:30958: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1566,37 +1566,37 @@ configure: failed program was:
 | 
 configure:30978: result: no
 configure:31025: checking whether lookup_bdev() wants 1 arg
-configure:31059: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:31059: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:31062: $? = 0
 configure:31064: test -s build/conftest.o
 configure:31067: $? = 0
 configure:31325: result: yes
 configure:31336: checking whether invalidate_bdev() wants 1 arg
-configure:31370: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:31370: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:31373: $? = 0
 configure:31375: test -s build/conftest.o
 configure:31378: $? = 0
 configure:31381: result: yes
 configure:31402: checking whether bdev_logical_block_size() is available
-configure:31438: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:31438: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:31441: $? = 0
 configure:31443: test -s build/conftest.o
 configure:31446: $? = 0
 configure:31449: result: yes
 configure:31471: checking whether bdev_physical_block_size() is available
-configure:31507: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:31507: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:31510: $? = 0
 configure:31512: test -s build/conftest.o
 configure:31515: $? = 0
 configure:31518: result: yes
 configure:31540: checking whether bio has bi_iter
-configure:31574: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:77:6: error: ‘struct bio’ has no member named ‘bi_iter’
+configure:31574: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:77:6: error: ‘struct bio’ has no member named ‘bi_iter’
    bio.bi_iter.bi_sector = 0;
       ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:31577: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1683,20 +1683,20 @@ configure: failed program was:
 | 
 configure:31595: result: no
 configure:31606: checking whether BIO_RW_FAILFAST_* are defined
-configure:31642: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:77:18: error: ‘BIO_RW_FAILFAST_DEV’ undeclared (first use in this function)
+configure:31642: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:77:18: error: ‘BIO_RW_FAILFAST_DEV’ undeclared (first use in this function)
    flags = ((1 << BIO_RW_FAILFAST_DEV) |
                   ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:77:18: note: each undeclared identifier is reported only once for each function it appears in
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:78:11: error: ‘BIO_RW_FAILFAST_TRANSPORT’ undeclared (first use in this function)
+/home/kau/zfs_chksm/build/conftest.c:77:18: note: each undeclared identifier is reported only once for each function it appears in
+/home/kau/zfs_chksm/build/conftest.c:78:11: error: ‘BIO_RW_FAILFAST_TRANSPORT’ undeclared (first use in this function)
      (1 << BIO_RW_FAILFAST_TRANSPORT) |
            ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:11: error: ‘BIO_RW_FAILFAST_DRIVER’ undeclared (first use in this function)
+/home/kau/zfs_chksm/build/conftest.c:79:11: error: ‘BIO_RW_FAILFAST_DRIVER’ undeclared (first use in this function)
      (1 << BIO_RW_FAILFAST_DRIVER));
            ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:31645: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1785,14 +1785,14 @@ configure: failed program was:
 | 
 configure:31663: result: no
 configure:31675: checking whether bio_set_dev() exists
-configure:31711: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:3: error: implicit declaration of function ‘bio_set_dev’ [-Werror=implicit-function-declaration]
+configure:31711: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:79:3: error: implicit declaration of function ‘bio_set_dev’ [-Werror=implicit-function-declaration]
    bio_set_dev(bio, bdev);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:31714: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1881,14 +1881,14 @@ configure: failed program was:
 | 
 configure:31732: result: no
 configure:31743: checking whether bio_set_dev() is GPL-only
-configure:31781: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:81:3: error: implicit declaration of function ‘bio_set_dev’ [-Werror=implicit-function-declaration]
+configure:31781: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:81:3: error: implicit declaration of function ‘bio_set_dev’ [-Werror=implicit-function-declaration]
    bio_set_dev(bio, bdev);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:31784: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -1979,14 +1979,14 @@ configure: failed program was:
 | 
 configure:31799: result: yes
 configure:31814: checking whether REQ_FAILFAST_MASK is defined
-configure:31848: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:31848: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:31851: $? = 0
 configure:31853: test -s build/conftest.o
 configure:31856: $? = 0
 configure:31859: result: yes
 configure:31880: checking whether REQ_OP_DISCARD is defined
-configure:31913: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:72:0:
+configure:31913: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+In file included from /home/kau/zfs_chksm/build/conftest.c:72:0:
 include/linux/blk_types.h:118:2: error: expected specifier-qualifier-list before ‘RH_KABI_REPLACE’
   RH_KABI_REPLACE(void *rh_reserved1, struct bio_aux *bio_aux)
   ^
@@ -2010,8 +2010,8 @@ include/linux/blk_types.h:317:8: error: ‘ENODATA’ undeclared (first use in t
 include/linux/blk_types.h:318:8: error: ‘EILSEQ’ undeclared (first use in this function)
   case -EILSEQ:
         ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:31916: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2099,8 +2099,8 @@ configure: failed program was:
 | 
 configure:31934: result: no
 configure:31945: checking whether REQ_OP_SECURE_ERASE is defined
-configure:31978: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:72:0:
+configure:31978: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+In file included from /home/kau/zfs_chksm/build/conftest.c:72:0:
 include/linux/blk_types.h:118:2: error: expected specifier-qualifier-list before ‘RH_KABI_REPLACE’
   RH_KABI_REPLACE(void *rh_reserved1, struct bio_aux *bio_aux)
   ^
@@ -2124,12 +2124,12 @@ include/linux/blk_types.h:317:8: error: ‘ENODATA’ undeclared (first use in t
 include/linux/blk_types.h:318:8: error: ‘EILSEQ’ undeclared (first use in this function)
   case -EILSEQ:
         ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:78:37: error: ‘REQ_OP_SECURE_ERASE’ undeclared (first use in this function)
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:78:37: error: ‘REQ_OP_SECURE_ERASE’ undeclared (first use in this function)
    int op __attribute__ ((unused)) = REQ_OP_SECURE_ERASE;
                                      ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:31981: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2217,8 +2217,8 @@ configure: failed program was:
 | 
 configure:31999: result: no
 configure:32010: checking whether REQ_OP_FLUSH is defined
-configure:32043: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:72:0:
+configure:32043: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+In file included from /home/kau/zfs_chksm/build/conftest.c:72:0:
 include/linux/blk_types.h:118:2: error: expected specifier-qualifier-list before ‘RH_KABI_REPLACE’
   RH_KABI_REPLACE(void *rh_reserved1, struct bio_aux *bio_aux)
   ^
@@ -2242,12 +2242,12 @@ include/linux/blk_types.h:317:8: error: ‘ENODATA’ undeclared (first use in t
 include/linux/blk_types.h:318:8: error: ‘EILSEQ’ undeclared (first use in this function)
   case -EILSEQ:
         ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:78:37: error: ‘REQ_OP_FLUSH’ undeclared (first use in this function)
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:78:37: error: ‘REQ_OP_FLUSH’ undeclared (first use in this function)
    int op __attribute__ ((unused)) = REQ_OP_FLUSH;
                                      ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32046: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2335,13 +2335,13 @@ configure: failed program was:
 | 
 configure:32064: result: no
 configure:32075: checking whether bio->bi_opf is defined
-configure:32109: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:6: error: ‘struct bio’ has no member named ‘bi_opf’
+configure:32109: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:79:6: error: ‘struct bio’ has no member named ‘bi_opf’
    bio.bi_opf = 0;
       ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32112: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2430,13 +2430,13 @@ configure: failed program was:
 | 
 configure:32130: result: no
 configure:32141: checking whether bio_end_io_t wants 1 arg
-configure:32177: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:76:51: error: initialization from incompatible pointer type [-Werror]
+configure:32177: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:76:51: error: initialization from incompatible pointer type [-Werror]
    bio_end_io_t *end_io __attribute__ ((unused)) = wanted_end_io;
                                                    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32180: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2527,20 +2527,20 @@ configure: failed program was:
 | 
 configure:32198: result: no
 configure:32209: checking whether bio->bi_status exists
-configure:32245: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:3: error: unknown type name ‘blk_status_t’
+configure:32245: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:79:3: error: unknown type name ‘blk_status_t’
    blk_status_t status __attribute__ ((unused)) = BLK_STS_OK;
    ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:50: error: ‘BLK_STS_OK’ undeclared (first use in this function)
+/home/kau/zfs_chksm/build/conftest.c:79:50: error: ‘BLK_STS_OK’ undeclared (first use in this function)
    blk_status_t status __attribute__ ((unused)) = BLK_STS_OK;
                                                   ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:50: note: each undeclared identifier is reported only once for each function it appears in
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:81:6: error: ‘struct bio’ has no member named ‘bi_status’
+/home/kau/zfs_chksm/build/conftest.c:79:50: note: each undeclared identifier is reported only once for each function it appears in
+/home/kau/zfs_chksm/build/conftest.c:81:6: error: ‘struct bio’ has no member named ‘bi_status’
    bio.bi_status = status;
       ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32248: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2631,14 +2631,14 @@ configure: failed program was:
 | 
 configure:32266: result: no
 configure:32277: checking whether BIO_RW_BARRIER is defined
-configure:32311: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:11: error: ‘BIO_RW_BARRIER’ undeclared (first use in this function)
+configure:32311: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:79:11: error: ‘BIO_RW_BARRIER’ undeclared (first use in this function)
    flags = BIO_RW_BARRIER;
            ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:11: note: each undeclared identifier is reported only once for each function it appears in
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+/home/kau/zfs_chksm/build/conftest.c:79:11: note: each undeclared identifier is reported only once for each function it appears in
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32314: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2727,14 +2727,14 @@ configure: failed program was:
 | 
 configure:32332: result: no
 configure:32343: checking whether BIO_RW_DISCARD is defined
-configure:32377: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:11: error: ‘BIO_RW_DISCARD’ undeclared (first use in this function)
+configure:32377: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:79:11: error: ‘BIO_RW_DISCARD’ undeclared (first use in this function)
    flags = BIO_RW_DISCARD;
            ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:79:11: note: each undeclared identifier is reported only once for each function it appears in
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+/home/kau/zfs_chksm/build/conftest.c:79:11: note: each undeclared identifier is reported only once for each function it appears in
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32380: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2823,13 +2823,13 @@ configure: failed program was:
 | 
 configure:32398: result: no
 configure:32409: checking whether blk_queue bdi is dynamic
-configure:32444: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:80:22: error: incompatible types when assigning to type ‘struct backing_dev_info’ from type ‘struct backing_dev_info *’
+configure:32444: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:80:22: error: incompatible types when assigning to type ‘struct backing_dev_info’ from type ‘struct backing_dev_info *’
    q.backing_dev_info = &bdi;
                       ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32447: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -2919,14 +2919,14 @@ configure: failed program was:
 | 
 configure:32465: result: no
 configure:32476: checking whether blk_queue_flag_clear() exists
-configure:32511: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:80:3: error: implicit declaration of function ‘blk_queue_flag_clear’ [-Werror=implicit-function-declaration]
+configure:32511: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:80:3: error: implicit declaration of function ‘blk_queue_flag_clear’ [-Werror=implicit-function-declaration]
    blk_queue_flag_clear(0, q);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32514: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3016,14 +3016,14 @@ configure: failed program was:
 | 
 configure:32533: result: no
 configure:32544: checking whether blk_queue_flag_set() exists
-configure:32579: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:80:3: error: implicit declaration of function ‘blk_queue_flag_set’ [-Werror=implicit-function-declaration]
+configure:32579: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:80:3: error: implicit declaration of function ‘blk_queue_flag_set’ [-Werror=implicit-function-declaration]
    blk_queue_flag_set(0, q);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32582: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3113,13 +3113,13 @@ configure: failed program was:
 | 
 configure:32600: result: no
 configure:32611: checking whether blk_queue_flush() is available
-configure:32647: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:32647: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:32650: $? = 0
 configure:32652: test -s build/conftest.o
 configure:32655: $? = 0
 configure:32658: result: yes
 configure:32664: checking whether blk_queue_flush() is GPL-only
-configure:32701: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:32701: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 FATAL: modpost: GPL-incompatible module conftest.ko uses GPL-only symbol 'blk_queue_flush'
 make[1]: *** [__modpost] Error 1
 make: *** [modules] Error 2
@@ -3215,14 +3215,14 @@ configure: failed program was:
 | 
 configure:32719: result: yes
 configure:32746: checking whether blk_queue_write_cache() exists
-configure:32782: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:83:3: error: implicit declaration of function ‘blk_queue_write_cache’ [-Werror=implicit-function-declaration]
+configure:32782: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:83:3: error: implicit declaration of function ‘blk_queue_write_cache’ [-Werror=implicit-function-declaration]
    blk_queue_write_cache(q, true, true);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:32785: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3315,29 +3315,29 @@ configure: failed program was:
 | 
 configure:32872: result: no
 configure:32885: checking whether blk_queue_max_hw_sectors() is available
-configure:32921: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:32921: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:32924: $? = 0
 configure:32926: test -s build/conftest.o
 configure:32929: $? = 0
 configure:32932: result: yes
 configure:32954: checking whether blk_queue_max_segments() is available
-configure:32990: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:32990: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:32993: $? = 0
 configure:32995: test -s build/conftest.o
 configure:32998: $? = 0
 configure:33001: result: yes
 configure:33023: checking whether the BIO_RW_UNPLUG enum is available
-configure:33060: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:84:8: error: ‘BIO_RW_UNPLUG’ undeclared (first use in this function)
+configure:33060: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:84:8: error: ‘BIO_RW_UNPLUG’ undeclared (first use in this function)
    rw = BIO_RW_UNPLUG;
         ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:84:8: note: each undeclared identifier is reported only once for each function it appears in
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:84:3: error: ‘rw’ has an incomplete type
+/home/kau/zfs_chksm/build/conftest.c:84:8: note: each undeclared identifier is reported only once for each function it appears in
+/home/kau/zfs_chksm/build/conftest.c:84:3: error: ‘rw’ has an incomplete type
    rw = BIO_RW_UNPLUG;
    ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:33063: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3431,20 +3431,20 @@ configure: failed program was:
 | 
 configure:33081: result: no
 configure:33093: checking whether struct blk_plug is available
-configure:33131: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33131: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:33134: $? = 0
 configure:33136: test -s build/conftest.o
 configure:33139: $? = 0
 configure:33142: result: yes
 configure:33163: checking whether get_disk_and_module() is available
-configure:33198: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:84:3: error: implicit declaration of function ‘get_disk_and_module’ [-Werror=implicit-function-declaration]
+configure:33198: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:84:3: error: implicit declaration of function ‘get_disk_and_module’ [-Werror=implicit-function-declaration]
    (void) get_disk_and_module(disk);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:33201: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3538,48 +3538,48 @@ configure: failed program was:
 | 
 configure:33221: result: no
 configure:33269: checking whether get_disk_ro() is available
-configure:33305: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33305: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:33308: $? = 0
 configure:33310: test -s build/conftest.o
 configure:33313: $? = 0
 configure:33316: result: yes
 configure:33337: checking whether get_gendisk() is available
-configure:33371: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33371: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:33374: $? = 0
 configure:33376: test -s build/conftest.o
 configure:33379: $? = 0
 configure:33431: result: yes
 configure:33442: checking whether bio_set_op_attrs is available
-configure:33477: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33477: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:33480: $? = 0
 configure:33482: test -s build/conftest.o
 configure:33485: $? = 0
 configure:33488: result: yes
 configure:33509: checking whether generic_readlink is global
-configure:33544: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33544: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:33547: $? = 0
 configure:33549: test -s build/conftest.o
 configure:33552: $? = 0
 configure:33555: result: yes
 configure:33576: checking whether ql->discard_granularity is available
-configure:33611: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33611: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:33614: $? = 0
 configure:33616: test -s build/conftest.o
 configure:33619: $? = 0
 configure:33622: result: yes
 configure:33643: checking whether super_block uses const struct xattr_handler
-configure:33690: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33690: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:33693: $? = 0
 configure:33695: test -s build/conftest.o
 configure:33698: $? = 0
 configure:33701: result: yes
 configure:33722: checking whether xattr_handler has name
-configure:33759: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:87:4: error: unknown field ‘name’ specified in initializer
+configure:33759: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:87:4: error: unknown field ‘name’ specified in initializer
     .name = XATTR_NAME_POSIX_ACL_ACCESS,
     ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:33762: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3682,14 +3682,14 @@ configure: failed program was:
 | 
 configure:33780: result: no
 configure:33791: checking whether xattr_handler->get() wants both dentry and inode
-configure:33831: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:90:4: error: initialization from incompatible pointer type [-Werror]
+configure:33831: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:90:4: error: initialization from incompatible pointer type [-Werror]
     .get = get,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:90:4: error: (near initialization for ‘xops.get’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:90:4: error: (near initialization for ‘xops.get’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:33834: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3795,14 +3795,14 @@ configure: failed program was:
 | 
 configure:33852: result: no
 configure:33854: checking whether xattr_handler->get() wants xattr_handler
-configure:33894: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:90:5: error: initialization from incompatible pointer type [-Werror]
+configure:33894: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:90:5: error: initialization from incompatible pointer type [-Werror]
      .get = get,
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:90:5: error: (near initialization for ‘xops.get’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:90:5: error: (near initialization for ‘xops.get’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:33897: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -3908,20 +3908,20 @@ configure: failed program was:
 | 
 configure:33915: result: no
 configure:33917: checking whether xattr_handler->get() wants dentry
-configure:33957: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:33957: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:33960: $? = 0
 configure:33962: test -s build/conftest.o
 configure:33965: $? = 0
 configure:33968: result: yes
 configure:34071: checking whether xattr_handler->set() wants both dentry and inode
-configure:34113: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:93:4: error: initialization from incompatible pointer type [-Werror]
+configure:34113: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:93:4: error: initialization from incompatible pointer type [-Werror]
     .set = set,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:93:4: error: (near initialization for ‘xops.set’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:93:4: error: (near initialization for ‘xops.set’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:34116: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -4030,14 +4030,14 @@ configure: failed program was:
 | 
 configure:34134: result: no
 configure:34136: checking whether xattr_handler->set() wants xattr_handler
-configure:34177: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:92:5: error: initialization from incompatible pointer type [-Werror]
+configure:34177: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:92:5: error: initialization from incompatible pointer type [-Werror]
      .set = set,
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:92:5: error: (near initialization for ‘xops.set’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:92:5: error: (near initialization for ‘xops.set’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:34180: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -4145,20 +4145,20 @@ configure: failed program was:
 | 
 configure:34198: result: no
 configure:34200: checking whether xattr_handler->set() wants dentry
-configure:34240: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:34240: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:34243: $? = 0
 configure:34245: test -s build/conftest.o
 configure:34248: $? = 0
 configure:34251: result: yes
 configure:34355: checking whether xattr_handler->list() wants simple
-configure:34393: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:90:4: error: initialization from incompatible pointer type [-Werror]
+configure:34393: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:90:4: error: initialization from incompatible pointer type [-Werror]
     .list = list,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:90:4: error: (near initialization for ‘xops.list’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:90:4: error: (near initialization for ‘xops.list’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:34396: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -4264,14 +4264,14 @@ configure: failed program was:
 | 
 configure:34414: result: no
 configure:34416: checking whether xattr_handler->list() wants xattr_handler
-configure:34456: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:92:5: error: initialization from incompatible pointer type [-Werror]
+configure:34456: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:92:5: error: initialization from incompatible pointer type [-Werror]
      .list = list,
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:92:5: error: (near initialization for ‘xops.list’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:92:5: error: (near initialization for ‘xops.list’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:34459: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -4379,31 +4379,31 @@ configure: failed program was:
 | 
 configure:34477: result: no
 configure:34479: checking whether xattr_handler->list() wants dentry
-configure:34520: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:34520: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:34523: $? = 0
 configure:34525: test -s build/conftest.o
 configure:34528: $? = 0
 configure:34531: result: yes
 configure:34635: checking whether inode_owner_or_capable() exists
-configure:34669: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:34669: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:34672: $? = 0
 configure:34674: test -s build/conftest.o
 configure:34677: $? = 0
 configure:34680: result: yes
 configure:34766: checking whether posix_acl_from_xattr() needs user_ns
-configure:34801: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:34801: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:34804: $? = 0
 configure:34806: test -s build/conftest.o
 configure:34809: $? = 0
 configure:34812: result: yes
 configure:34833: checking whether posix_acl_release() is available
-configure:34869: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:34869: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:34872: $? = 0
 configure:34874: test -s build/conftest.o
 configure:34877: $? = 0
 configure:34880: result: yes
 configure:34886: checking whether posix_acl_release() is GPL-only
-configure:34925: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:34925: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 FATAL: modpost: GPL-incompatible module conftest.ko uses GPL-only symbol 'kfree_call_rcu'
 make[1]: *** [__modpost] Error 1
 make: *** [modules] Error 2
@@ -4517,7 +4517,7 @@ configure: failed program was:
 | 
 configure:34943: result: yes
 configure:34971: checking whether set_cached_acl() is usable
-configure:35012: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35012: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 FATAL: modpost: GPL-incompatible module conftest.ko uses GPL-only symbol 'kfree_call_rcu'
 make[1]: *** [__modpost] Error 1
 make: *** [modules] Error 2
@@ -4634,20 +4634,20 @@ configure: failed program was:
 | 
 configure:35033: result: no
 configure:35044: checking whether posix_acl_chmod exists
-configure:35078: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35078: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:35081: $? = 0
 configure:35083: test -s build/conftest.o
 configure:35086: $? = 0
 configure:35089: result: yes
 configure:35109: checking whether __posix_acl_chmod exists
-configure:35143: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:98:3: error: implicit declaration of function ‘__posix_acl_chmod’ [-Werror=implicit-function-declaration]
+configure:35143: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:98:3: error: implicit declaration of function ‘__posix_acl_chmod’ [-Werror=implicit-function-declaration]
    __posix_acl_chmod(NULL, 0, 0)
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35146: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -4755,31 +4755,31 @@ configure: failed program was:
 | 
 configure:35164: result: no
 configure:35175: checking whether posix_acl_equiv_mode() wants umode_t
-configure:35210: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35210: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:35213: $? = 0
 configure:35215: test -s build/conftest.o
 configure:35218: $? = 0
 configure:35221: result: yes
 configure:35242: checking whether posix_acl_valid() wants user namespace
-configure:35280: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:103:3: error: passing argument 1 of ‘posix_acl_valid’ from incompatible pointer type [-Werror]
+configure:35280: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:103:3: error: passing argument 1 of ‘posix_acl_valid’ from incompatible pointer type [-Werror]
    error = posix_acl_valid(user_ns, acl);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:93:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:93:0:
 include/linux/posix_acl.h:87:12: note: expected ‘const struct posix_acl *’ but argument is of type ‘struct user_namespace *’
  extern int posix_acl_valid(const struct posix_acl *);
             ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:103:3: error: too many arguments to function ‘posix_acl_valid’
+/home/kau/zfs_chksm/build/conftest.c:103:3: error: too many arguments to function ‘posix_acl_valid’
    error = posix_acl_valid(user_ns, acl);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:93:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:93:0:
 include/linux/posix_acl.h:87:12: note: declared here
  extern int posix_acl_valid(const struct posix_acl *);
             ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35283: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -4892,20 +4892,20 @@ configure: failed program was:
 | 
 configure:35301: result: no
 configure:35312: checking whether iops->permission() exists
-configure:35351: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35351: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:35354: $? = 0
 configure:35356: test -s build/conftest.o
 configure:35359: $? = 0
 configure:35362: result: yes
 configure:35383: checking whether iops->permission() wants nameidata
-configure:35424: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:101:4: error: initialization from incompatible pointer type [-Werror]
+configure:35424: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:101:4: error: initialization from incompatible pointer type [-Werror]
     .permission = permission_fn,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:101:4: error: (near initialization for ‘iops.permission’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:101:4: error: (near initialization for ‘iops.permission’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35427: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5022,15 +5022,15 @@ configure: failed program was:
 | 
 configure:35448: result: no
 configure:35459: checking whether iops->check_acl() exists
-configure:35498: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:99:4: error: unknown field ‘check_acl’ specified in initializer
+configure:35498: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:99:4: error: unknown field ‘check_acl’ specified in initializer
     .check_acl = check_acl_fn,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:99:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:99:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:99:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:99:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35501: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5145,15 +5145,15 @@ configure: failed program was:
 | 
 configure:35519: result: no
 configure:35530: checking whether iops->check_acl() wants flags
-configure:35570: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:100:4: error: unknown field ‘check_acl’ specified in initializer
+configure:35570: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:100:4: error: unknown field ‘check_acl’ specified in initializer
     .check_acl = check_acl_fn,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:100:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:100:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:100:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:100:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35573: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5269,21 +5269,21 @@ configure: failed program was:
 | 
 configure:35594: result: no
 configure:35605: checking whether iops->get_acl() exists
-configure:35645: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35645: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:35648: $? = 0
 configure:35650: test -s build/conftest.o
 configure:35653: $? = 0
 configure:35656: result: yes
 configure:35677: checking whether iops->set_acl() exists
-configure:35717: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:101:4: error: unknown field ‘set_acl’ specified in initializer
+configure:35717: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:101:4: error: unknown field ‘set_acl’ specified in initializer
     .set_acl = set_acl_fn,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:101:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:101:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:101:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:101:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35720: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5400,14 +5400,14 @@ configure: failed program was:
 | 
 configure:35738: result: no
 configure:35750: checking whether iops->getattr() takes a path
-configure:35792: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:103:4: error: initialization from incompatible pointer type [-Werror]
+configure:35792: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:103:4: error: initialization from incompatible pointer type [-Werror]
     .getattr = test_getattr,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:103:4: error: (near initialization for ‘iops.getattr’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:103:4: error: (near initialization for ‘iops.getattr’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:35795: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5526,25 +5526,25 @@ configure: failed program was:
 | 
 configure:35813: result: no
 configure:35824: checking whether iops->getattr() takes a vfsmount
-configure:35866: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35866: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:35869: $? = 0
 configure:35871: test -s build/conftest.o
 configure:35874: $? = 0
 configure:35877: result: yes
 configure:35899: checking whether inode_set_flags() exists
-configure:35933: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:35933: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:35936: $? = 0
 configure:35938: test -s build/conftest.o
 configure:35941: $? = 0
 configure:35944: result: yes
 configure:35965: checking whether inode_set_iversion() exists
-configure:35999: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:96:30: fatal error: linux/iversion.h: No such file or directory
+configure:35999: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:96:30: fatal error: linux/iversion.h: No such file or directory
    #include <linux/iversion.h>
                               ^
 compilation terminated.
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:36002: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5657,17 +5657,17 @@ configure: failed program was:
 | 
 configure:36020: result: no
 configure:36031: checking whether uncached_acl_sentinel() exists
-configure:36064: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:102:3: error: implicit declaration of function ‘uncached_acl_sentinel’ [-Werror=implicit-function-declaration]
+configure:36064: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:102:3: error: implicit declaration of function ‘uncached_acl_sentinel’ [-Werror=implicit-function-declaration]
    void *sentinel __attribute__ ((unused)) = uncached_acl_sentinel(NULL);
    ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:102:45: error: initialization makes pointer from integer without a cast [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:102:45: error: initialization makes pointer from integer without a cast [-Werror]
    void *sentinel __attribute__ ((unused)) = uncached_acl_sentinel(NULL);
                                              ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:36067: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5779,32 +5779,32 @@ configure: failed program was:
 | 
 configure:36085: result: no
 configure:36096: checking whether sops->show_options() wants dentry
-configure:36134: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36134: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36137: $? = 0
 configure:36139: test -s build/conftest.o
 configure:36142: $? = 0
 configure:36145: result: yes
 configure:36166: checking whether file_inode() is available
-configure:36200: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36200: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36203: $? = 0
 configure:36205: test -s build/conftest.o
 configure:36208: $? = 0
 configure:36211: result: yes
 configure:36232: checking whether file_dentry() is available
-configure:36266: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36266: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36269: $? = 0
 configure:36271: test -s build/conftest.o
 configure:36274: $? = 0
 configure:36277: result: yes
 configure:36298: checking whether fops->fsync() wants
-configure:36339: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:106:4: error: initialization from incompatible pointer type [-Werror]
+configure:36339: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:106:4: error: initialization from incompatible pointer type [-Werror]
     .fsync = test_fsync,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:106:4: error: (near initialization for ‘fops.fsync’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:106:4: error: (near initialization for ‘fops.fsync’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:36342: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -5924,14 +5924,14 @@ configure: failed program was:
 |   return 0;
 | }
 | 
-configure:36406: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:105:4: error: initialization from incompatible pointer type [-Werror]
+configure:36406: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:105:4: error: initialization from incompatible pointer type [-Werror]
     .fsync = test_fsync,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:105:4: error: (near initialization for ‘fops.fsync’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:105:4: error: (near initialization for ‘fops.fsync’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:36409: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6050,51 +6050,51 @@ configure: failed program was:
 |   return 0;
 | }
 | 
-configure:36474: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36474: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36477: $? = 0
 configure:36479: test -s build/conftest.o
 configure:36482: $? = 0
 configure:36485: result: range
 configure:36505: checking whether sops->evict_inode() exists
-configure:36541: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36541: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36544: $? = 0
 configure:36546: test -s build/conftest.o
 configure:36549: $? = 0
 configure:36552: result: yes
 configure:36573: checking whether sops->dirty_inode() wants flags
-configure:36612: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36612: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36615: $? = 0
 configure:36617: test -s build/conftest.o
 configure:36620: $? = 0
 configure:36623: result: yes
 configure:36644: checking whether sops->nr_cached_objects() exists
-configure:36683: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36683: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36686: $? = 0
 configure:36688: test -s build/conftest.o
 configure:36691: $? = 0
 configure:36694: result: yes
 configure:36715: checking whether sops->free_cached_objects() exists
-configure:36755: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36755: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36758: $? = 0
 configure:36760: test -s build/conftest.o
 configure:36763: $? = 0
 configure:36766: result: yes
 configure:36788: checking whether fops->fallocate() exists
-configure:36828: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36828: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36831: $? = 0
 configure:36833: test -s build/conftest.o
 configure:36836: $? = 0
 configure:36839: result: yes
 configure:36860: checking whether iops->fallocate() exists
-configure:36900: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: unknown field ‘fallocate’ specified in initializer
+configure:36900: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: unknown field ‘fallocate’ specified in initializer
     .fallocate = test_fallocate,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: (near initialization for ‘fops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: (near initialization for ‘fops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:36903: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6222,26 +6222,26 @@ configure: failed program was:
 | 
 configure:36921: result: no
 configure:36933: checking whether fops->aio_fsync() exists
-configure:36970: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:36970: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:36973: $? = 0
 configure:36975: test -s build/conftest.o
 configure:36978: $? = 0
 configure:36981: result: yes
 configure:37002: checking whether iops->create()/mkdir()/mknod() take umode_t
-configure:37042: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:37042: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:37045: $? = 0
 configure:37047: test -s build/conftest.o
 configure:37050: $? = 0
 configure:37053: result: yes
 configure:37074: checking whether iops->lookup() passes nameidata
-configure:37116: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:116:4: error: initialization from incompatible pointer type [-Werror]
+configure:37116: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:116:4: error: initialization from incompatible pointer type [-Werror]
     .lookup = inode_lookup,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:116:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:116:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37119: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6373,14 +6373,14 @@ configure: failed program was:
 | 
 configure:37137: result: no
 configure:37148: checking whether iops->create() passes nameidata
-configure:37194: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:120:4: error: initialization from incompatible pointer type [-Werror]
+configure:37194: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:120:4: error: initialization from incompatible pointer type [-Werror]
     .create  = inode_create,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:120:4: error: (near initialization for ‘iops.create’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:120:4: error: (near initialization for ‘iops.create’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37197: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6516,19 +6516,19 @@ configure: failed program was:
 | 
 configure:37215: result: no
 configure:37226: checking whether iops->get_link() passes delayed
-configure:37264: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:109:14: error: ‘struct delayed_call’ declared inside parameter list [-Werror]
+configure:37264: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:109:14: error: ‘struct delayed_call’ declared inside parameter list [-Werror]
        struct delayed_call *done) { return "symlink"; }
               ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:109:14: error: its scope is only this definition or declaration, which is probably not what you want [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: unknown field ‘get_link’ specified in initializer
+/home/kau/zfs_chksm/build/conftest.c:109:14: error: its scope is only this definition or declaration, which is probably not what you want [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: unknown field ‘get_link’ specified in initializer
     .get_link = get_link,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37267: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6656,15 +6656,15 @@ configure: failed program was:
 | 
 configure:37285: result: no
 configure:37287: checking whether iops->get_link() passes cookie
-configure:37325: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:5: error: unknown field ‘get_link’ specified in initializer
+configure:37325: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:112:5: error: unknown field ‘get_link’ specified in initializer
      .get_link = get_link,
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:5: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:5: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:5: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:5: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37328: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6792,14 +6792,14 @@ configure: failed program was:
 | 
 configure:37346: result: no
 configure:37349: checking whether iops->follow_link() passes cookie
-configure:37387: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: initialization from incompatible pointer type [-Werror]
+configure:37387: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: initialization from incompatible pointer type [-Werror]
     .follow_link = follow_link,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:112:4: error: (near initialization for ‘iops.follow_link’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:112:4: error: (near initialization for ‘iops.follow_link’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37390: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -6927,17 +6927,17 @@ configure: failed program was:
 | 
 configure:37408: result: no
 configure:37410: checking whether iops->follow_link() passes nameidata
-configure:37448: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:37448: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:37451: $? = 0
 configure:37453: test -s build/conftest.o
 configure:37456: $? = 0
 configure:37459: result: yes
-configure:37533: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:109:4: error: #error "Expecting get_link() delayed done"
+configure:37533: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:109:4: error: #error "Expecting get_link() delayed done"
    #error "Expecting get_link() delayed done"
     ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37536: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7061,14 +7061,14 @@ configure: failed program was:
 | }
 | 
 configure:37552: checking whether iops->put_link() passes cookie
-configure:37590: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:113:5: error: initialization from incompatible pointer type [-Werror]
+configure:37590: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:113:5: error: initialization from incompatible pointer type [-Werror]
      .put_link = put_link,
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:113:5: error: (near initialization for ‘iops.put_link’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:113:5: error: (near initialization for ‘iops.put_link’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37593: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7197,21 +7197,21 @@ configure: failed program was:
 | 
 configure:37611: result: no
 configure:37613: checking whether iops->put_link() passes nameidata
-configure:37651: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:37651: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:37654: $? = 0
 configure:37656: test -s build/conftest.o
 configure:37659: $? = 0
 configure:37662: result: yes
 configure:37696: checking whether i_op->tmpfile() exists
-configure:37734: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:114:4: error: unknown field ‘tmpfile’ specified in initializer
+configure:37734: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:114:4: error: unknown field ‘tmpfile’ specified in initializer
     .tmpfile = tmpfile,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:114:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:114:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:114:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:114:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37737: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7341,15 +7341,15 @@ configure: failed program was:
 | 
 configure:37755: result: no
 configure:37766: checking whether iops->truncate_range() exists
-configure:37803: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:113:4: error: unknown field ‘truncate_range’ specified in initializer
+configure:37803: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:113:4: error: unknown field ‘truncate_range’ specified in initializer
     .truncate_range = truncate_range,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:113:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:113:4: error: (near initialization for ‘iops.lookup’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:113:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:113:4: error: (near initialization for ‘iops.lookup’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:37806: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7478,38 +7478,38 @@ configure: failed program was:
 | 
 configure:37824: result: no
 configure:37835: checking whether dops->d_automount() exists
-configure:37871: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:37871: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:37874: $? = 0
 configure:37876: test -s build/conftest.o
 configure:37879: $? = 0
 configure:37882: result: yes
 configure:37903: checking whether eops->encode_fh() wants inode
-configure:37940: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:37940: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:37943: $? = 0
 configure:37945: test -s build/conftest.o
 configure:37948: $? = 0
 configure:37951: result: yes
 configure:37972: checking whether eops->commit_metadata() exists
-configure:38008: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38008: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38011: $? = 0
 configure:38013: test -s build/conftest.o
 configure:38016: $? = 0
 configure:38019: result: yes
 configure:38039: checking whether clear_inode() is available
-configure:38073: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38073: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38076: $? = 0
 configure:38078: test -s build/conftest.o
 configure:38081: $? = 0
 configure:38133: result: yes
 configure:38143: checking whether setattr_prepare() is available
-configure:38181: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:123:3: error: implicit declaration of function ‘setattr_prepare’ [-Werror=implicit-function-declaration]
+configure:38181: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:123:3: error: implicit declaration of function ‘setattr_prepare’ [-Werror=implicit-function-declaration]
    error = setattr_prepare(dentry, attr);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:38184: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7642,44 +7642,44 @@ configure: failed program was:
 | 
 configure:38204: result: no
 configure:38251: checking whether insert_inode_locked() is available
-configure:38285: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38285: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38288: $? = 0
 configure:38290: test -s build/conftest.o
 configure:38293: $? = 0
 configure:38345: result: yes
 configure:38355: checking whether d_make_root() is available
-configure:38389: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38389: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38392: $? = 0
 configure:38394: test -s build/conftest.o
 configure:38397: $? = 0
 configure:38449: result: yes
 configure:38459: checking whether d_obtain_alias() is available
-configure:38493: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38493: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38496: $? = 0
 configure:38498: test -s build/conftest.o
 configure:38501: $? = 0
 configure:38553: result: yes
 configure:38563: checking whether d_prune_aliases() is available
-configure:38598: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38598: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38601: $? = 0
 configure:38603: test -s build/conftest.o
 configure:38606: $? = 0
 configure:38658: result: yes
 configure:38668: checking whether d_set_d_op() is available
-configure:38702: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38702: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38705: $? = 0
 configure:38707: test -s build/conftest.o
 configure:38710: $? = 0
 configure:38762: result: yes
 configure:38773: checking whether dops->d_revalidate() takes struct nameidata
-configure:38814: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:126:4: error: initialization from incompatible pointer type [-Werror]
+configure:38814: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:126:4: error: initialization from incompatible pointer type [-Werror]
     .d_revalidate = revalidate,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:126:4: error: (near initialization for ‘dops.d_revalidate’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:126:4: error: (near initialization for ‘dops.d_revalidate’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:38817: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7821,37 +7821,37 @@ configure: failed program was:
 | 
 configure:38835: result: no
 configure:38846: checking whether dentry uses const struct dentry_operations
-configure:38885: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38885: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38888: $? = 0
 configure:38890: test -s build/conftest.o
 configure:38893: $? = 0
 configure:38896: result: yes
 configure:38916: checking whether truncate_setsize() is available
-configure:38950: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:38950: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:38953: $? = 0
 configure:38955: test -s build/conftest.o
 configure:38958: $? = 0
 configure:39010: result: yes
 configure:39021: checking whether security_inode_init_security wants 6 args
-configure:39061: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:133:3: error: passing argument 4 of ‘security_inode_init_security’ from incompatible pointer type [-Werror]
+configure:39061: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:133:3: error: passing argument 4 of ‘security_inode_init_security’ from incompatible pointer type [-Werror]
    security_inode_init_security(ip, dip, str, &name, &value, &len);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:120:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:120:0:
 include/linux/security.h:1893:5: note: expected ‘initxattrs’ but argument is of type ‘char **’
  int security_inode_init_security(struct inode *inode, struct inode *dir,
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:133:3: error: too many arguments to function ‘security_inode_init_security’
+/home/kau/zfs_chksm/build/conftest.c:133:3: error: too many arguments to function ‘security_inode_init_security’
    security_inode_init_security(ip, dip, str, &name, &value, &len);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:120:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:120:0:
 include/linux/security.h:1893:5: note: declared here
  int security_inode_init_security(struct inode *inode, struct inode *dir,
      ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:39064: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -7994,31 +7994,31 @@ configure: failed program was:
 | 
 configure:39082: result: no
 configure:39093: checking whether security_inode_init_security wants callback
-configure:39131: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:39131: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:39134: $? = 0
 configure:39136: test -s build/conftest.o
 configure:39139: $? = 0
 configure:39142: result: yes
 configure:39163: checking whether fst->mount() exists
-configure:39206: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:39206: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:39209: $? = 0
 configure:39211: test -s build/conftest.o
 configure:39214: $? = 0
 configure:39217: result: yes
 configure:39238: checking whether super_block has s_shrink
-configure:39280: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:39280: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:39283: $? = 0
 configure:39285: test -s build/conftest.o
 configure:39288: $? = 0
 configure:39291: result: yes
 configure:39313: checking whether shrink_control has nid
-configure:39348: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:131:16: error: ‘struct shrink_control’ has no member named ‘nid’
+configure:39348: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:131:16: error: ‘struct shrink_control’ has no member named ‘nid’
        sizeof(sc.nid);
                 ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:39351: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -8159,20 +8159,20 @@ configure: failed program was:
 | 
 configure:39369: result: no
 configure:39380: checking whether super_block has s_instances list_head
-configure:39415: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:131:3: error: passing argument 1 of ‘INIT_LIST_HEAD’ from incompatible pointer type [-Werror]
+configure:39415: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:131:3: error: passing argument 1 of ‘INIT_LIST_HEAD’ from incompatible pointer type [-Werror]
    INIT_LIST_HEAD(&sb.s_instances);
    ^
 In file included from include/linux/wait.h:5:0,
                  from include/linux/fs.h:6,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:123:
+                 from /home/kau/zfs_chksm/build/conftest.c:123:
 include/linux/list.h:24:20: note: expected ‘struct list_head *’ but argument is of type ‘struct hlist_node *’
  static inline void INIT_LIST_HEAD(struct list_head *list)
                     ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:39418: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -8313,20 +8313,20 @@ configure: failed program was:
 | 
 configure:39436: result: no
 configure:39446: checking whether super_block has s_d_op
-configure:39480: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:39480: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:39483: $? = 0
 configure:39485: test -s build/conftest.o
 configure:39488: $? = 0
 configure:39491: result: yes
 configure:39512: checking whether super_setup_bdi_name() exists
-configure:39550: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:134:7: error: implicit declaration of function ‘super_setup_bdi_name’ [-Werror=implicit-function-declaration]
+configure:39550: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:134:7: error: implicit declaration of function ‘super_setup_bdi_name’ [-Werror=implicit-function-declaration]
        super_setup_bdi_name(&sb, "%.28s-%ld", name, atomic_long_inc_return(&zfs_bdi_seq));
        ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:39553: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -8470,17 +8470,17 @@ configure: failed program was:
 | 
 configure:39573: result: no
 configure:39575: checking whether bdi_setup_and_register() wants 2 args
-configure:39612: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:133:8: error: too few arguments to function ‘bdi_setup_and_register’
+configure:39612: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:133:8: error: too few arguments to function ‘bdi_setup_and_register’
         bdi_setup_and_register(&bdi, name);
         ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:124:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:124:0:
 include/linux/backing-dev.h:120:5: note: declared here
  int bdi_setup_and_register(struct backing_dev_info *, char *, unsigned int);
      ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:39615: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -8623,38 +8623,38 @@ configure: failed program was:
 | 
 configure:39635: result: no
 configure:39637: checking whether bdi_setup_and_register() wants 3 args
-configure:39675: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:39675: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:39678: $? = 0
 configure:39680: test -s build/conftest.o
 configure:39683: $? = 0
 configure:39735: result: yes
 configure:40261: checking whether set_nlink() is available
-configure:40296: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:40296: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:40299: $? = 0
 configure:40301: test -s build/conftest.o
 configure:40304: $? = 0
 configure:40307: result: yes
 configure:40328: checking whether elevator_change() is available
-configure:40367: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:40367: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024 -Wno-unused-but-set-variable  M=/home/kau/zfs_chksm/build 
 configure:40370: $? = 0
 configure:40372: test -s build/conftest.o
 configure:40375: $? = 0
 configure:40378: result: yes
 configure:40399: checking whether sget() wants 5 args
-configure:40437: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:40437: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:40440: $? = 0
 configure:40442: test -s build/conftest.o
 configure:40445: $? = 0
 configure:40448: result: yes
 configure:40468: checking whether lseek_execute() is available
-configure:40507: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:139:3: error: implicit declaration of function ‘lseek_execute’ [-Werror=implicit-function-declaration]
+configure:40507: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:139:3: error: implicit declaration of function ‘lseek_execute’ [-Werror=implicit-function-declaration]
    lseek_execute(fp, ip, offset, maxsize);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:40510: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -8803,15 +8803,15 @@ configure: failed program was:
 | 
 configure:40530: result: no
 configure:40578: checking whether fops->iterate_shared() is available
-configure:40617: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:134:4: error: unknown field ‘iterate_shared’ specified in initializer
+configure:40617: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:134:4: error: unknown field ‘iterate_shared’ specified in initializer
     .iterate_shared  = iterate,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:134:4: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:134:4: error: (near initialization for ‘fops.owner’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:134:4: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:134:4: error: (near initialization for ‘fops.owner’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:40620: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -8961,12 +8961,12 @@ configure: failed program was:
 | 
 configure:40638: result: no
 configure:40641: checking whether fops->iterate() is available
-configure:40684: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:5: error: #error "RHEL 7.5, FMODE_KABI_ITERATE interface"
+configure:40684: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:138:5: error: #error "RHEL 7.5, FMODE_KABI_ITERATE interface"
     #error "RHEL 7.5, FMODE_KABI_ITERATE interface"
      ^
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:40687: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -9120,26 +9120,26 @@ configure: failed program was:
 | 
 configure:40705: result: no
 configure:40708: checking whether fops->readdir() is available
-configure:40747: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:40747: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:40750: $? = 0
 configure:40752: test -s build/conftest.o
 configure:40755: $? = 0
 configure:40758: result: yes
 configure:40791: checking whether fops->read/write_iter() are available
-configure:40834: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:7: error: unknown field ‘read_iter’ specified in initializer
+configure:40834: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:138:7: error: unknown field ‘read_iter’ specified in initializer
        .read_iter = test_read,
        ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:7: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:7: error: (near initialization for ‘fops.owner’) [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:139:7: error: unknown field ‘write_iter’ specified in initializer
+/home/kau/zfs_chksm/build/conftest.c:138:7: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:138:7: error: (near initialization for ‘fops.owner’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:139:7: error: unknown field ‘write_iter’ specified in initializer
        .write_iter = test_write,
        ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:139:7: error: initialization from incompatible pointer type [-Werror]
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:139:7: error: (near initialization for ‘fops.llseek’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:139:7: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:139:7: error: (near initialization for ‘fops.llseek’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:40837: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -9294,32 +9294,32 @@ configure: failed program was:
 | 
 configure:40928: result: no
 configure:40938: checking whether generic_write_checks() takes kiocb
-configure:40974: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:3: error: passing argument 1 of ‘generic_write_checks’ from incompatible pointer type [-Werror]
+configure:40974: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:138:3: error: passing argument 1 of ‘generic_write_checks’ from incompatible pointer type [-Werror]
    generic_write_checks(iocb, iov);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:129:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:129:0:
 include/linux/fs.h:2994:5: note: expected ‘struct file *’ but argument is of type ‘struct kiocb *’
  int generic_write_checks(struct file *file, loff_t *pos, size_t *count, int isblk);
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:3: error: passing argument 2 of ‘generic_write_checks’ from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:138:3: error: passing argument 2 of ‘generic_write_checks’ from incompatible pointer type [-Werror]
    generic_write_checks(iocb, iov);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:129:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:129:0:
 include/linux/fs.h:2994:5: note: expected ‘loff_t *’ but argument is of type ‘struct iov_iter *’
  int generic_write_checks(struct file *file, loff_t *pos, size_t *count, int isblk);
      ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:138:3: error: too few arguments to function ‘generic_write_checks’
+/home/kau/zfs_chksm/build/conftest.c:138:3: error: too few arguments to function ‘generic_write_checks’
    generic_write_checks(iocb, iov);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:129:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:129:0:
 include/linux/fs.h:2994:5: note: declared here
  int generic_write_checks(struct file *file, loff_t *pos, size_t *count, int isblk);
      ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:40977: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -9467,30 +9467,30 @@ configure: failed program was:
 | 
 configure:40995: result: no
 configure:41006: checking whether kmap_atomic wants 1 args
-configure:41040: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41040: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41043: $? = 0
 configure:41045: test -s build/conftest.o
 configure:41048: $? = 0
 configure:41051: result: yes
 configure:41072: checking whether follow_down_one() is available
-configure:41106: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41106: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41109: $? = 0
 configure:41111: test -s build/conftest.o
 configure:41114: $? = 0
 configure:41117: result: yes
 configure:41138: checking whether make_request_fn() returns int
-configure:41176: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:142:3: error: passing argument 2 of ‘blk_queue_make_request’ from incompatible pointer type [-Werror]
+configure:41176: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:142:3: error: passing argument 2 of ‘blk_queue_make_request’ from incompatible pointer type [-Werror]
    blk_queue_make_request(NULL, &make_request);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:131:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:131:0:
 include/linux/blkdev.h:1143:13: note: expected ‘void (*)(struct request_queue *, struct bio *)’ but argument is of type ‘int (*)(struct request_queue *, struct bio *)’
  extern void blk_queue_make_request(struct request_queue *, make_request_fn *);
              ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:41179: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -9642,51 +9642,51 @@ configure: failed program was:
 | 
 configure:41200: result: no
 configure:41202: checking whether make_request_fn() returns void
-configure:41240: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41240: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41243: $? = 0
 configure:41245: test -s build/conftest.o
 configure:41248: $? = 0
 configure:41251: result: yes
 configure:41350: checking whether 3 arg generic IO accounting symbols are available
-configure:41390: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:135:29: error: initialization from incompatible pointer type [-Werror]
+configure:41390: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:135:29: error: initialization from incompatible pointer type [-Werror]
        struct hd_struct *) = &generic_start_io_acct;
                              ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:137:24: error: initialization from incompatible pointer type [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:137:24: error: initialization from incompatible pointer type [-Werror]
        unsigned long) = &generic_end_io_acct;
                         ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:143:3: error: passing argument 3 of ‘generic_start_io_acct’ makes integer from pointer without a cast [-Werror]
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:143:3: error: passing argument 3 of ‘generic_start_io_acct’ makes integer from pointer without a cast [-Werror]
    generic_start_io_acct(0, 0, NULL);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:132:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:132:0:
 include/linux/bio.h:318:6: note: expected ‘long unsigned int’ but argument is of type ‘void *’
  void generic_start_io_acct(struct request_queue *q, int rw,
       ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:143:3: error: too few arguments to function ‘generic_start_io_acct’
+/home/kau/zfs_chksm/build/conftest.c:143:3: error: too few arguments to function ‘generic_start_io_acct’
    generic_start_io_acct(0, 0, NULL);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:132:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:132:0:
 include/linux/bio.h:318:6: note: declared here
  void generic_start_io_acct(struct request_queue *q, int rw,
       ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:144:3: error: passing argument 2 of ‘generic_end_io_acct’ makes integer from pointer without a cast [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:144:3: error: passing argument 2 of ‘generic_end_io_acct’ makes integer from pointer without a cast [-Werror]
    generic_end_io_acct(0, NULL, 0);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:132:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:132:0:
 include/linux/bio.h:320:6: note: expected ‘int’ but argument is of type ‘void *’
  void generic_end_io_acct(struct request_queue *q, int rw,
       ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:144:3: error: too few arguments to function ‘generic_end_io_acct’
+/home/kau/zfs_chksm/build/conftest.c:144:3: error: too few arguments to function ‘generic_end_io_acct’
    generic_end_io_acct(0, NULL, 0);
    ^
-In file included from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:132:0:
+In file included from /home/kau/zfs_chksm/build/conftest.c:132:0:
 include/linux/bio.h:320:6: note: declared here
  void generic_end_io_acct(struct request_queue *q, int rw,
       ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:41393: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -9840,25 +9840,25 @@ configure: failed program was:
 | 
 configure:41413: result: no
 configure:41461: checking whether 4 arg generic IO accounting symbols are available
-configure:41501: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41501: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41504: $? = 0
 configure:41506: test -s build/conftest.o
 configure:41509: $? = 0
 configure:41561: result: yes
 configure:41572: checking which kernel_fpu function to use
-configure:41607: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41607: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41610: $? = 0
 configure:41612: test -s build/conftest.o
 configure:41615: $? = 0
 configure:41618: result: kernel_fpu_*
 configure:41706: checking whether i_(uid|gid)_(read|write) exist
-configure:41740: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41740: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41743: $? = 0
 configure:41745: test -s build/conftest.o
 configure:41748: $? = 0
 configure:41751: result: yes
 configure:41772: checking whether module_param_call() is hardened
-configure:41817: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41817: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 In file included from include/linux/thread_info.h:11:0,
                  from include/linux/preempt.h:9,
                  from include/linux/spinlock.h:50,
@@ -9866,7 +9866,7 @@ In file included from include/linux/thread_info.h:11:0,
                  from include/linux/time.h:5,
                  from include/linux/stat.h:18,
                  from include/linux/module.h:10,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:136:
+                 from /home/kau/zfs_chksm/build/conftest.c:136:
 include/linux/bug.h:36:45: error: passing argument 1 of ‘__check_old_set_param’ from incompatible pointer type [-Werror]
  #define BUILD_BUG_ON_ZERO(e) (sizeof(struct { int:-!!(e); }))
                                              ^
@@ -9876,11 +9876,11 @@ include/linux/moduleparam.h:179:2: note: in expansion of macro ‘BUILD_BUG_ON_Z
 include/linux/moduleparam.h:191:2: note: in expansion of macro ‘__module_param_call’
   __module_param_call(MODULE_PARAM_PREFIX,   \
   ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
+/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
    module_param_call(p, param_set, param_get, NULL, 0644);
    ^
 In file included from include/linux/module.h:17:0,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:136:
+                 from /home/kau/zfs_chksm/build/conftest.c:136:
 include/linux/moduleparam.h:197:1: note: expected ‘int (*)(const char *, struct kernel_param *)’ but argument is of type ‘int (*)(const char *, const struct kernel_param *)’
  __check_old_set_param(int (*oldset)(const char *, struct kernel_param *))
  ^
@@ -9891,7 +9891,7 @@ In file included from include/linux/thread_info.h:11:0,
                  from include/linux/time.h:5,
                  from include/linux/stat.h:18,
                  from include/linux/module.h:10,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:136:
+                 from /home/kau/zfs_chksm/build/conftest.c:136:
 include/linux/bug.h:36:45: error: passing argument 1 of ‘__check_old_set_param’ from incompatible pointer type [-Werror]
  #define BUILD_BUG_ON_ZERO(e) (sizeof(struct { int:-!!(e); }))
                                              ^
@@ -9901,11 +9901,11 @@ include/linux/moduleparam.h:179:2: note: in expansion of macro ‘BUILD_BUG_ON_Z
 include/linux/moduleparam.h:191:2: note: in expansion of macro ‘__module_param_call’
   __module_param_call(MODULE_PARAM_PREFIX,   \
   ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
+/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
    module_param_call(p, param_set, param_get, NULL, 0644);
    ^
 In file included from include/linux/module.h:17:0,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:136:
+                 from /home/kau/zfs_chksm/build/conftest.c:136:
 include/linux/moduleparam.h:197:1: note: expected ‘int (*)(const char *, struct kernel_param *)’ but argument is of type ‘int (*)(const char *, const struct kernel_param *)’
  __check_old_set_param(int (*oldset)(const char *, struct kernel_param *))
  ^
@@ -9916,7 +9916,7 @@ In file included from include/linux/thread_info.h:11:0,
                  from include/linux/time.h:5,
                  from include/linux/stat.h:18,
                  from include/linux/module.h:10,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:136:
+                 from /home/kau/zfs_chksm/build/conftest.c:136:
 include/linux/bug.h:36:45: error: passing argument 1 of ‘__check_old_set_param’ from incompatible pointer type [-Werror]
  #define BUILD_BUG_ON_ZERO(e) (sizeof(struct { int:-!!(e); }))
                                              ^
@@ -9926,11 +9926,11 @@ include/linux/moduleparam.h:179:2: note: in expansion of macro ‘BUILD_BUG_ON_Z
 include/linux/moduleparam.h:191:2: note: in expansion of macro ‘__module_param_call’
   __module_param_call(MODULE_PARAM_PREFIX,   \
   ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
+/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
    module_param_call(p, param_set, param_get, NULL, 0644);
    ^
 In file included from include/linux/module.h:17:0,
-                 from /mnt/pm1/home/kau/zfs_chksm/build/conftest.c:136:
+                 from /home/kau/zfs_chksm/build/conftest.c:136:
 include/linux/moduleparam.h:197:1: note: expected ‘int (*)(const char *, struct kernel_param *)’ but argument is of type ‘int (*)(const char *, const struct kernel_param *)’
  __check_old_set_param(int (*oldset)(const char *, struct kernel_param *))
  ^
@@ -9940,15 +9940,15 @@ include/linux/moduleparam.h:182:16: error: passing argument 1 of ‘__check_old_
 include/linux/moduleparam.h:191:2: note: in expansion of macro ‘__module_param_call’
   __module_param_call(MODULE_PARAM_PREFIX,   \
   ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
+/home/kau/zfs_chksm/build/conftest.c:149:3: note: in expansion of macro ‘module_param_call’
    module_param_call(p, param_set, param_get, NULL, 0644);
    ^
 include/linux/moduleparam.h:197:1: note: expected ‘int (*)(const char *, struct kernel_param *)’ but argument is of type ‘int (*)(const char *, const struct kernel_param *)’
  __check_old_set_param(int (*oldset)(const char *, struct kernel_param *))
  ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:41820: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -10112,14 +10112,14 @@ configure: failed program was:
 | 
 configure:41838: result: no
 configure:41849: checking whether iops->rename() wants flags
-configure:41889: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:143:4: error: initialization from incompatible pointer type [-Werror]
+configure:41889: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c:143:4: error: initialization from incompatible pointer type [-Werror]
     .rename = rename_fn,
     ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:143:4: error: (near initialization for ‘iops.rename’) [-Werror]
+/home/kau/zfs_chksm/build/conftest.c:143:4: error: (near initialization for ‘iops.rename’) [-Werror]
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:41892: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -10278,23 +10278,23 @@ configure: failed program was:
 | 
 configure:41910: result: no
 configure:41921: checking whether generic_setxattr() exists
-configure:41959: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:41959: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:41962: $? = 0
 configure:41964: test -s build/conftest.o
 configure:41967: $? = 0
 configure:41970: result: yes
 configure:41990: checking whether current_time() exists
-configure:42025: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:144:3: error: implicit declaration of function ‘current_time’ [-Werror=implicit-function-declaration]
+configure:42025: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:144:3: error: implicit declaration of function ‘current_time’ [-Werror=implicit-function-declaration]
    ip.i_atime = current_time(&ip);
    ^
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:144:14: error: incompatible types when assigning to type ‘struct timespec’ from type ‘int’
+/home/kau/zfs_chksm/build/conftest.c:144:14: error: incompatible types when assigning to type ‘struct timespec’ from type ‘int’
    ip.i_atime = current_time(&ip);
               ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:42028: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -10448,14 +10448,14 @@ configure: failed program was:
 | 
 configure:42048: result: no
 configure:42097: checking whether global_node_page_state() exists
-configure:42131: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:144:3: error: implicit declaration of function ‘global_node_page_state’ [-Werror=implicit-function-declaration]
+configure:42131: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:144:3: error: implicit declaration of function ‘global_node_page_state’ [-Werror=implicit-function-declaration]
    (void) global_node_page_state(0);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:42134: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -10609,14 +10609,14 @@ configure: failed program was:
 | 
 configure:42152: result: no
 configure:42163: checking whether global_zone_page_state() exists
-configure:42197: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:144:3: error: implicit declaration of function ‘global_zone_page_state’ [-Werror=implicit-function-declaration]
+configure:42197: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:144:3: error: implicit declaration of function ‘global_zone_page_state’ [-Werror=implicit-function-declaration]
    (void) global_zone_page_state(0);
    ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:42200: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -10804,14 +10804,14 @@ configure:42408: result: yes
 configure:42424: checking global_page_state enums are sane
 configure:42572: result: yes
 configure:42577: checking whether posix_acl has refcount_t
-configure:42613: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
-/mnt/pm1/home/kau/zfs_chksm/build/conftest.c:150:44: error: initialization from incompatible pointer type [-Werror]
+configure:42613: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
+/home/kau/zfs_chksm/build/conftest.c: In function ‘main’:
+/home/kau/zfs_chksm/build/conftest.c:150:44: error: initialization from incompatible pointer type [-Werror]
    refcount_t *r __attribute__ ((unused)) = &acl.a_refcount;
                                             ^
 cc1: all warnings being treated as errors
-make[1]: *** [/mnt/pm1/home/kau/zfs_chksm/build/conftest.o] Error 1
-make: *** [_module_/mnt/pm1/home/kau/zfs_chksm/build] Error 2
+make[1]: *** [/home/kau/zfs_chksm/build/conftest.o] Error 1
+make: *** [_module_/home/kau/zfs_chksm/build] Error 2
 configure:42616: $? = 2
 configure: failed program was:
 | /* confdefs.h */
@@ -10971,25 +10971,25 @@ configure: failed program was:
 | 
 configure:42634: result: no
 configure:42646: checking whether ns_capable exists
-configure:42679: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:42679: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:42682: $? = 0
 configure:42684: test -s build/conftest.o
 configure:42687: $? = 0
 configure:42690: result: yes
 configure:42711: checking whether cred_t->user_ns exists
-configure:42745: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:42745: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:42748: $? = 0
 configure:42750: test -s build/conftest.o
 configure:42753: $? = 0
 configure:42756: result: yes
 configure:42777: checking whether kuid_has_mapping/kgid_has_mapping exist
-configure:42811: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:42811: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:42814: $? = 0
 configure:42816: test -s build/conftest.o
 configure:42819: $? = 0
 configure:42822: result: yes
 configure:42844: checking whether in_compat_syscall() is available
-configure:42877: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/mnt/pm1/home/kau/zfs_chksm/build 
+configure:42877: cp conftest.c conftest.h build && make modules -C /usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64 EXTRA_CFLAGS=-Werror -Wframe-larger-than=1024   M=/home/kau/zfs_chksm/build 
 configure:42880: $? = 0
 configure:42882: test -s build/conftest.o
 configure:42885: $? = 0
@@ -11451,7 +11451,7 @@ $(if $(CODE_COVERAGE_BRANCH_COVERAGE),\
 --rc genhtml_branch_coverage=$(CODE_COVERAGE_BRANCH_COVERAGE))
 --rc lcov_branch_coverage=$(CODE_COVERAGE_BRANCH_COVERAGE))
 .PHONY: check-code-coverage code-coverage-capture code-coverage-capture-hook code-coverage-clean
-ACLOCAL='${SHELL} /mnt/pm1/home/kau/zfs_chksm/config/missing aclocal-1.13'
+ACLOCAL='${SHELL} /home/kau/zfs_chksm/config/missing aclocal-1.13'
 ALIEN='alien'
 ALIEN_VERSION=''
 AMDEPBACKSLASH='\'
@@ -11465,9 +11465,9 @@ AM_DISTCHECK_CONFIGURE_FLAGS += --disable-code-coverage
 AM_DISTCHECK_CONFIGURE_FLAGS ?=
 AM_V='$(V)'
 AR='ar'
-AUTOCONF='${SHELL} /mnt/pm1/home/kau/zfs_chksm/config/missing autoconf'
-AUTOHEADER='${SHELL} /mnt/pm1/home/kau/zfs_chksm/config/missing autoheader'
-AUTOMAKE='${SHELL} /mnt/pm1/home/kau/zfs_chksm/config/missing automake-1.13'
+AUTOCONF='${SHELL} /home/kau/zfs_chksm/config/missing autoconf'
+AUTOHEADER='${SHELL} /home/kau/zfs_chksm/config/missing autoheader'
+AUTOMAKE='${SHELL} /home/kau/zfs_chksm/config/missing automake-1.13'
 AWK='gawk'
 CC='gcc'
 CCAS='gcc'
@@ -11570,7 +11570,7 @@ LTLIBOBJS=''
 MAINT='#'
 MAINTAINER_MODE_FALSE=''
 MAINTAINER_MODE_TRUE='#'
-MAKEINFO='${SHELL} /mnt/pm1/home/kau/zfs_chksm/config/missing makeinfo'
+MAKEINFO='${SHELL} /home/kau/zfs_chksm/config/missing makeinfo'
 MANIFEST_TOOL=':'
 MKDIR_P='/usr/bin/mkdir -p'
 MULTIARCH_LIBDIR=''
@@ -11699,7 +11699,7 @@ host_vendor='unknown'
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /mnt/pm1/home/kau/zfs_chksm/config/install-sh'
+install_sh='${SHELL} /home/kau/zfs_chksm/config/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'

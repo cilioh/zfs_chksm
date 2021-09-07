@@ -1,5 +1,5 @@
-src = /mnt/pm1/home/kau/zfs_chksm/module/zcommon
-obj = /mnt/pm1/home/kau/zfs_chksm/module/zcommon
+src = /home/kau/zfs_chksm/module/zcommon
+obj = /home/kau/zfs_chksm/module/zcommon
 
 MODULE := zcommon
 

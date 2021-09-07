@@ -32,8 +32,8 @@
 #include <sys/abd.h>
 
 //JW
-//#include "/home/kau/zfs/include/hr_calclock.h"
-#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+#include "/home/kau/zfs_chksm/include/hr_calclock.h"
+//#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
 
 
 

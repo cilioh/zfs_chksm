@@ -7,8 +7,8 @@ export SPLSRC=/usr/src/spl-0.7.13
 export SPLBUILD=/usr/src/spl-0.7.13/3.10.0-1062.1.1.el7_myms.x86_64
 export SPLSRCVER=0.7.13-1
 
-export SRCDIR=/mnt/pm1/home/kau/zfs_chksm
-export BUILDDIR=/mnt/pm1/home/kau/zfs_chksm
+export SRCDIR=/home/kau/zfs_chksm
+export BUILDDIR=/home/kau/zfs_chksm
 export LIBDIR=${BUILDDIR}/lib
 export CMDDIR=${BUILDDIR}/cmd
 export MODDIR=${BUILDDIR}/module

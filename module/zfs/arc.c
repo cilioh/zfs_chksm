@@ -295,8 +295,8 @@ boolean_t arc_watch = B_FALSE;
 #endif
 
 //JW
-//#include "/home/kau/zfs/include/hr_calclock.h"
-#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+#include "/home/kau/zfs_chksm/include/hr_calclock.h"
+//#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
 
 static kmutex_t		arc_reclaim_lock;
 static kcondvar_t	arc_reclaim_thread_cv;

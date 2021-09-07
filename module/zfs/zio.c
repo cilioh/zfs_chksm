@@ -45,8 +45,8 @@
 #include <sys/abd.h>
 
 //JW
-//#include "/home/kau/zfs/include/hr_calclock.h"
-#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+#include "/home/kau/zfs_chksm/include/hr_calclock.h"
+//#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
 
 
 //#include <sys/dmu.h>
@@ -742,6 +742,8 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 		zio->io_bp = (blkptr_t *)bp;
 		zio->io_bp_copy = *bp;
 		zio->io_bp_orig = *bp;
+		//JW
+		zio->jw_io_bp = *bp;
 		if (type != ZIO_TYPE_WRITE ||
 		    zio->io_child_type == ZIO_CHILD_DDT)
 			zio->io_bp = &zio->io_bp_copy;	/* so caller can free */
@@ -751,16 +753,22 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 			pipeline |= ZIO_GANG_STAGES;
 	}
 	//JW_chk
-	blkptr_t blk;
-	BP_ZERO(&blk);
-	zio->jw_io_bp = &blk;
-	//BP_ZERO(zio->jw_io_bp);
+	//blkptr_t blk;
+	//BP_ZERO(&blk);
+	//zio->jw_io_bp = &blk;
+
 	zio->chksm = 0;
 #ifdef _KERNEL
 	zio->id = (unsigned int)xxx;
 	xxx++;
 	zio->yy = 0;
+
+	//blkptr_t *jw_io_bp = &zio->jw_io_bp;
+	//if(jw_io_bp != NULL)
+	//	printk(KERN_WARNING "[CREATE][%d] %lld %lld %lld %lld\n", zio->id, (&jw_io_bp->blk_cksum)->zc_word[0], (&jw_io_bp->blk_cksum)->zc_word[1], (&jw_io_bp->blk_cksum)->zc_word[2], (&jw_io_bp->blk_cksum)->zc_word[3]);
 #endif
+
+
 	zio->io_spa = spa;
 	zio->io_txg = txg;
 	zio->io_done = done;
@@ -1188,8 +1196,6 @@ zio_write_phys(zio_t *pio, vdev_t *vd, uint64_t offset, uint64_t size,
 		//abd_copy(jw_buf, zio->io_abd, zio->io_size);
 		//zio->jw_io_abd = jw_buf;
 		//zio->jw_io_size = zio->io_size;
-
-		zio->yy = 777;
 	}
 	return (zio);
 }
@@ -1428,9 +1434,10 @@ calclock(aa_local, &aa_t, &aa_c);
 		zio->io_pipeline = zio->io_orig_pipeline;
 	}
 aa_local[1] = gethrtime();
-calclock(aa_local, &aa_t, &aa_c);	
-
+calclock(aa_local, &aa_t, &aa_c);
+/*
 	blkptr_t *jw_io_bp = zio->jw_io_bp;
+	BP_ZERO(jw_io_bp);
 	blkptr_t *io_bp = zio->io_bp;
 	int d;
 	if(io_bp != NULL) {
@@ -1441,13 +1448,20 @@ calclock(aa_local, &aa_t, &aa_c);
 		jw_io_bp->blk_birth = io_bp->blk_birth;
 		jw_io_bp->blk_fill = io_bp->blk_fill;
 		for (d = 0; d < 4; d++)
-			jw_io_bp->blk_cksum.zc_word[d] = io_bp->blk_cksum.zc_word[d];
+			(&jw_io_bp->blk_cksum)->zc_word[d] = (&io_bp->blk_cksum)->zc_word[d];
 	}
+	zio->yy = 333;
+	*/
 //#ifdef _KERNEL
 //	printk(KERN_WARNING "making BP [%d][%lld]\n", zio->id, jw_io_bp->blk_cksum.zc_word[1]);
 //#endif
-	
-
+/*
+#ifdef _KERNEL
+	blkptr_t *jw_io_bp = &zio->jw_io_bp;
+	if(jw_io_bp != NULL)
+		printk(KERN_WARNING "[INIT][%d] %lld %lld %lld %lld\n", zio->id, (&jw_io_bp->blk_cksum)->zc_word[0], (&jw_io_bp->blk_cksum)->zc_word[1], (&jw_io_bp->blk_cksum)->zc_word[2], (&jw_io_bp->blk_cksum)->zc_word[3]);
+#endif
+*/
 	return (zio);
 }
 
@@ -1645,6 +1659,30 @@ calclock(dd_local, &dd_t, &dd_c);
 	}
 dd_local[1] = gethrtime();
 calclock(dd_local, &dd_t, &dd_c);	
+/*
+	blkptr_t *jw_io_bp = zio->jw_io_bp;
+	BP_ZERO(jw_io_bp);
+	blkptr_t *io_bp = zio->io_bp;
+	int d;
+	if(io_bp != NULL) {
+		for (d = 0; d < SPA_DVAS_PER_BP; d++)
+			jw_io_bp->blk_dva[d] = io_bp->blk_dva[d];
+		jw_io_bp->blk_prop = io_bp->blk_prop;
+		jw_io_bp->blk_phys_birth = io_bp->blk_phys_birth;
+		jw_io_bp->blk_birth = io_bp->blk_birth;
+		jw_io_bp->blk_fill = io_bp->blk_fill;
+		for (d = 0; d < 4; d++)
+			(&jw_io_bp->blk_cksum)->zc_word[d] = (&io_bp->blk_cksum)->zc_word[d];
+	}
+	zio->yy = 444;
+*/
+/*
+#ifdef _KERNEL
+	blkptr_t *jw_io_bp = &zio->jw_io_bp;
+	if(jw_io_bp != NULL)
+		printk(KERN_WARNING "[COMPRESS][%d] %lld %lld %lld %lld\n", zio->id, (&jw_io_bp->blk_cksum)->zc_word[0], (&jw_io_bp->blk_cksum)->zc_word[1], (&jw_io_bp->blk_cksum)->zc_word[2], (&jw_io_bp->blk_cksum)->zc_word[3]);
+#endif
+*/
 	return (zio);
 }
 
@@ -1827,6 +1865,9 @@ chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 */	
 		
 	//chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, new_zio, flags, &new_zio->chksm_io_tqent, new_zio->id);
+	
+
+
 	chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, zio, flags, &zio->chksm_io_tqent, zio->id);
 	
 	//zio->chksm = 2;
@@ -2121,14 +2162,31 @@ calclock(a_local, &a_t, &a_c);
 //
 //		CHECKSUM stage
 		if(zio_opt == 1 && highbit64(stage)-1 == 6){
-			zio->chksm = 1;
+			
+			//zio->chksm = 1;
+			
 			//dprintf("[%u] chksm:%d tq_name:%s tq_nthreads:%d tq_nactive:%d \n", zio->id, zio->chksm, tq->tq_name, tq->tq_nthreads, tq->tq_nactive);
 			//chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_TRUE);
+			
+
+
+			zio->chksm = 1;
 			abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
 			abd_copy(jw_buf, zio->io_abd, zio->io_size);
 			zio->jw_io_abd = jw_buf;
 			zio->jw_io_size = zio->io_size;
-
+			
+			blkptr_t *jw_io_bp = &zio->jw_io_bp;
+			blkptr_t *io_bp = zio->io_bp;
+/*
+#ifdef _KERNEL
+			//printk(KERN_WARNING "[%d][%d]\n", zio->yy, zio->id);
+			if(jw_io_bp != NULL)
+				printk(KERN_WARNING "[EXEC][%d] %lld %lld %lld %lld\n", zio->id, (&jw_io_bp->blk_cksum)->zc_word[0], (&jw_io_bp->blk_cksum)->zc_word[1], (&jw_io_bp->blk_cksum)->zc_word[2], (&jw_io_bp->blk_cksum)->zc_word[3]);
+			if(io_bp != NULL)
+				printk(KERN_WARNING "[ORIG][%d] %lld %lld %lld %lld\n", zio->id, (&io_bp->blk_cksum)->zc_word[0], (&io_bp->blk_cksum)->zc_word[1], (&io_bp->blk_cksum)->zc_word[2], (&io_bp->blk_cksum)->zc_word[3]);
+#endif
+*/
 			//ddt_bp_create
 			/*
 			if(zio->io_bp != NULL){
@@ -2174,6 +2232,8 @@ calclock(a_local, &a_t, &a_c);
 	
 
 			//memcpy(zio->jw_io_bp, zio->io_bp, sizeof(blkptr_t));
+			
+			
 			chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_FALSE);
 			stage <<= 1;
 		}
@@ -4150,8 +4210,9 @@ calclock(ee_local1, &ee_t1, &ee_c1);
 	abd_copy(jw_buf, zio->io_abd, zio->io_size);
 	zio->jw_io_abd = jw_buf;
 	zio->jw_io_size = zio->io_size; */
-	zio_checksum_compute(zio, checksum, zio->jw_io_abd, zio->jw_io_size);
 	
+
+	zio_checksum_compute(zio, checksum, zio->jw_io_abd, zio->jw_io_size);
 	//zio_checksum_compute(zio, checksum, zio->io_abd, zio->io_size);
 	
 	zio->chksm = 2;
@@ -4287,7 +4348,8 @@ chk_local_1[0] = gethrtime();
 #endif
 chk_local_1[1] = gethrtime();
 calclock(chk_local_1, &chk_t_1, &chk_c_1);
-*/	
+*/
+
 hrtime_t ii_local[2];
 ii_local[0] = gethrtime();
 

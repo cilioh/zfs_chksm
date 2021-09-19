@@ -496,9 +496,9 @@ extern taskq_t	*taskq_create(const char *, int, pri_t, int, int, uint_t);
 	    (taskq_create(a, b, c, d, e, f))
 
 //chksm
-extern taskq_t	*chksm_taskq_create(const char *, int, pri_t, int, int, uint_t);
-#define	chksm_taskq_create_proc(a, b, c, d, e, p, f) \
-	    (chksm_taskq_create(a, b, c, d, e, f))
+extern taskq_t	*cksum_taskq_create(const char *, int, pri_t, int, int, uint_t);
+#define	cksum_taskq_create_proc(a, b, c, d, e, p, f) \
+	    (cksum_taskq_create(a, b, c, d, e, f))
 	    
 #define	taskq_create_sysdc(a, b, d, e, p, dc, f) \
 	    (taskq_create(a, b, maxclsyspri, d, e, f))

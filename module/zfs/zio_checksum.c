@@ -304,6 +304,29 @@ zio_checksum_label_verifier(zio_cksum_t *zcp, uint64_t offset)
  * Calls the template init function of a checksum which supports context
  * templates and installs the template into the spa_t.
  */
+
+static void
+cksum_zio_checksum_template_init(enum zio_checksum checksum, jw_zio_cksum_t *zio_cksum)
+{
+#ifdef _KERNEL
+	//printk(KERN_WARNING "CKSM_INIT[%d]\n", checksum);
+	//zio_checksum_info_t *ci = &zio_checksum_table[1];
+	zio_checksum_info_t *ci = &zio_checksum_table[checksum];
+	if (ci->ci_tmpl_init == NULL)
+		return;
+	if (zio_cksum->spa_cksum_tmpls[checksum] != NULL)
+		return;
+	VERIFY(ci->ci_tmpl_free != NULL);
+	mutex_enter(&zio_cksum->spa_cksum_tmpls_lock);
+	if (zio_cksum->spa_cksum_tmpls[checksum] == NULL) {
+		zio_cksum->spa_cksum_tmpls[checksum] =
+		    ci->ci_tmpl_init(&zio_cksum->spa_cksum_salt);
+		VERIFY(zio_cksum->spa_cksum_tmpls[checksum] != NULL);
+	}
+	mutex_exit(&zio_cksum->spa_cksum_tmpls_lock);
+#endif
+}
+
 static void
 zio_checksum_template_init(enum zio_checksum checksum, spa_t *spa)
 {
@@ -324,9 +347,6 @@ zio_checksum_template_init(enum zio_checksum checksum, spa_t *spa)
 	mutex_exit(&spa->spa_cksum_tmpls_lock);
 }
 
-/*
- * Generate the checksum.
- */
 unsigned long long eea_t=0, eea_c=0;
 unsigned long long eeb_t=0, eeb_c=0;
 unsigned long long eec_t=0, eec_c=0;
@@ -335,30 +355,137 @@ unsigned long long eee_t=0, eee_c=0;
 unsigned long long eef_t=0, eef_c=0;
 
 void
+cksum_zio_checksum_compute(jw_zio_cksum_t *zio_cksum, enum zio_checksum checksum,
+    abd_t *abd, uint64_t size)
+{
+hrtime_t eea_local[2];
+eea_local[0] = gethrtime();
+	static const uint64_t zec_magic = ZEC_MAGIC;
+	blkptr_t *bp = &zio_cksum->io_bp;
+	
+	uint64_t offset = zio_cksum->io_offset;
+	zio_checksum_info_t *ci = &zio_checksum_table[checksum];
+	zio_cksum_t cksum;
+	//spa_t *spa = zio->io_spa;
+
+
+	ASSERT((uint_t)checksum < ZIO_CHECKSUM_FUNCTIONS);
+	ASSERT(ci->ci_func[0] != NULL);
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "[%ld]COMPUTE\n", zio_cksum->id);
+//#endif
+	cksum_zio_checksum_template_init(checksum, zio_cksum);
+eea_local[1] = gethrtime();
+calclock(eea_local, &eea_t, &eea_c);
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "[%ld]COMPUTE\n", zio_cksum->id);
+//#endif
+hrtime_t eeb_local[2];
+eeb_local[0] = gethrtime();
+	if (ci->ci_flags & ZCHECKSUM_FLAG_EMBEDDED) {
+		zio_eck_t eck;
+		size_t eck_offset;
+
+hrtime_t eec_local[2];
+eec_local[0] = gethrtime();
+		if (checksum == ZIO_CHECKSUM_ZILOG2) {
+			zil_chain_t zilc;
+			abd_copy_to_buf(&zilc, abd, sizeof (zil_chain_t));
+			size = P2ROUNDUP_TYPED(zilc.zc_nused, ZIL_MIN_BLKSZ,
+			    uint64_t);
+			eck = zilc.zc_eck;
+			eck_offset = offsetof(zil_chain_t, zc_eck);
+		} else {
+			eck_offset = size - sizeof (zio_eck_t);
+			abd_copy_to_buf_off(&eck, abd, eck_offset,
+			    sizeof (zio_eck_t));
+		}
+eec_local[1] = gethrtime();
+calclock(eec_local, &eec_t, &eec_c);
+hrtime_t eed_local[2];
+eed_local[0] = gethrtime();
+
+		if (checksum == ZIO_CHECKSUM_GANG_HEADER) {
+			zio_checksum_gang_verifier(&eck.zec_cksum, bp);
+			abd_copy_from_buf_off(abd, &eck.zec_cksum,
+			    eck_offset + offsetof(zio_eck_t, zec_cksum),
+			    sizeof (zio_cksum_t));
+		} else if (checksum == ZIO_CHECKSUM_LABEL) {
+			zio_checksum_label_verifier(&eck.zec_cksum, offset);
+			abd_copy_from_buf_off(abd, &eck.zec_cksum,
+			    eck_offset + offsetof(zio_eck_t, zec_cksum),
+			    sizeof (zio_cksum_t));
+		} else {
+			bp->blk_cksum = eck.zec_cksum;
+			//blk_cksum_tmp = eck.zec_cksum;
+		}
+		
+eed_local[1] = gethrtime();
+calclock(eed_local, &eed_t, &eed_c);
+hrtime_t eee_local[2];
+eee_local[0] = gethrtime();
+		abd_copy_from_buf_off(abd, &zec_magic,
+		    eck_offset + offsetof(zio_eck_t, zec_magic),
+		    sizeof (zec_magic));
+		ci->ci_func[0](abd, size, zio_cksum->spa_cksum_tmpls[checksum],
+		    &cksum);
+
+		abd_copy_from_buf_off(abd, &cksum,
+		    eck_offset + offsetof(zio_eck_t, zec_cksum),
+		    sizeof (zio_cksum_t));
+eee_local[1] = gethrtime();
+calclock(eee_local, &eee_t, &eee_c);
+	}
+	else {
+hrtime_t eef_local[2];
+eef_local[0] = gethrtime();
+		ci->ci_func[0](abd, size, zio_cksum->spa_cksum_tmpls[checksum],
+		    &bp->blk_cksum);
+eef_local[1] = gethrtime();
+calclock(eef_local, &eef_t, &eef_c);
+	}
+//	if(zio_cksum->io_abd != NULL)
+	abd_free(zio_cksum->io_abd);
+	//mutex_destroy(&zio_cksum->spa_cksum_tmpls_lock);
+eeb_local[1] = gethrtime();
+calclock(eeb_local, &eeb_t, &eeb_c);
+}
+
+
+
+/*
+ * Generate the checksum.
+ */
+//unsigned long long eea_t=0, eea_c=0;
+//unsigned long long eeb_t=0, eeb_c=0;
+//unsigned long long eec_t=0, eec_c=0;
+//unsigned long long eed_t=0, eed_c=0;
+//unsigned long long eee_t=0, eee_c=0;
+//unsigned long long eef_t=0, eef_c=0;
+
+void
 zio_checksum_compute(zio_t *zio, enum zio_checksum checksum,
     abd_t *abd, uint64_t size)
 {
 hrtime_t eea_local[2];
 eea_local[0] = gethrtime();
 	static const uint64_t zec_magic = ZEC_MAGIC;
-	//blkptr_t *bp = zio->io_bp;
-	blkptr_t *bp = &zio->jw_io_bp;
+	blkptr_t *bp = zio->io_bp;
+	//blkptr_t *bp = &zio->jw_io_bp;
 	//blkptr_t *bp;
 	//BP_ZERO(bp);
 	//
-	/*
-#ifdef _KERNEL
-	if (ZIO_CHECKSUM_EQUAL(bp_orig->blk_cksum, bp->blk_cksum))
-		printk(KERN_WARNING "AA\n");
-	else{
-		printk(KERN_WARNING "BB\n");
-		(&bp->blk_cksum)->zc_word[0]=(&bp_orig->blk_cksum)->zc_word[0];
-		(&bp->blk_cksum)->zc_word[1]=(&bp_orig->blk_cksum)->zc_word[1];
-		(&bp->blk_cksum)->zc_word[2]=(&bp_orig->blk_cksum)->zc_word[2];
-		(&bp->blk_cksum)->zc_word[3]=(&bp_orig->blk_cksum)->zc_word[3];
-	}
-#endif
-*/
+//#ifdef _KERNEL
+//	if (ZIO_CHECKSUM_EQUAL(bp_orig->blk_cksum, bp->blk_cksum))
+//		printk(KERN_WARNING "AA\n");
+//	else{
+//		printk(KERN_WARNING "BB\n");
+//		(&bp->blk_cksum)->zc_word[0]=(&bp_orig->blk_cksum)->zc_word[0];
+//		(&bp->blk_cksum)->zc_word[1]=(&bp_orig->blk_cksum)->zc_word[1];
+//		(&bp->blk_cksum)->zc_word[2]=(&bp_orig->blk_cksum)->zc_word[2];
+//		(&bp->blk_cksum)->zc_word[3]=(&bp_orig->blk_cksum)->zc_word[3];
+//	}
+//#endif
 	uint64_t offset = zio->io_offset;
 	zio_checksum_info_t *ci = &zio_checksum_table[checksum];
 	zio_cksum_t cksum;
@@ -447,15 +574,13 @@ eef_local[0] = gethrtime();
 //dprintf("[%u][ddd]\n", zio->id);
 //JW: calling abd_fletcher_4_native function
 		//JW0628
-		/*
-#ifdef _KERNEL
+//#ifdef _KERNEL
 //	//if(zio->yy != 0)
 //	printk(KERN_WARNING "func:%pF [%d][%lld][%lld]\n", ci->ci_func[0], zio->id, bp->blk_cksum.zc_word[1], zio->jw_io_bp->blk_cksum.zc_word[1]);
 	
-	if(bp != NULL)
-		printk(KERN_WARNING "[COM][%d] %lld %lld %lld %lld\n", zio->id, (&bp->blk_cksum)->zc_word[0], (&bp->blk_cksum)->zc_word[1], (&bp->blk_cksum)->zc_word[2], (&bp->blk_cksum)->zc_word[3]);
-#endif
-*/
+//	if(bp != NULL)
+//		printk(KERN_WARNING "[COM][%d] %lld %lld %lld %lld\n", zio->id, (&bp->blk_cksum)->zc_word[0], (&bp->blk_cksum)->zc_word[1], (&bp->blk_cksum)->zc_word[2], (&bp->blk_cksum)->zc_word[3]);
+//#endif
 		//abd_fletcher_4_native(abd, size, spa->spa_cksum_tmpls[checksum],
 		//	&bp->blk_cksum);
 		//zio_cksum_t *zcp;
@@ -477,7 +602,7 @@ calclock(eef_local, &eef_t, &eef_c);
 //	printk(KERN_WARNING "FREE [%d][%d]\n", zio->id, zio->yy);
 //#endif
 	
-	abd_free(zio->jw_io_abd);
+	//abd_free(zio->jw_io_abd);
 eeb_local[1] = gethrtime();
 calclock(eeb_local, &eeb_t, &eeb_c);
 //dprintf("[%u][eee]\n", zio->id);

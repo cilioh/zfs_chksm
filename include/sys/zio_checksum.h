@@ -128,6 +128,9 @@ extern zio_checksum_t abd_fletcher_4_byteswap;
 
 extern int zio_checksum_equal(spa_t *, blkptr_t *, enum zio_checksum,
     void *, uint64_t, uint64_t, zio_bad_cksum_t *);
+//JW
+extern void cksum_zio_checksum_compute(jw_zio_cksum_t *, enum zio_checksum,
+    struct abd *, uint64_t);
 extern void zio_checksum_compute(zio_t *, enum zio_checksum,
     struct abd *, uint64_t);
 extern int zio_checksum_error_impl(spa_t *, const blkptr_t *, enum zio_checksum,

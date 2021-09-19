@@ -20,10 +20,11 @@ sh ./autogen.sh
 ./configure --with-spec=redhat
 #make CPPFLAGS="-I/usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64/include -I/usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64/arch/x86/include" pkg-utils rpm-dkms rpm-kmod
 #make CPPFLAGS="-I/usr/include" pkg-utils rpm-dkms rpm-kmod
-make pkg-utils rpm-dkms
-make rpm-kmod
-#make pkg-kmod
 
+make pkg-utils 
+make pkg-kmod
+#make rpm-dkms
+#make rpm-kmod
 
 
 echo y | yum localinstall *.x86_64.rpm

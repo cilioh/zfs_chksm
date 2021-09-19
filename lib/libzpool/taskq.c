@@ -303,7 +303,7 @@ taskq_create(const char *name, int nthreads, pri_t pri,
 
 //chksm
 taskq_t *
-chksm_taskq_create(const char *name, int nthreads, pri_t pri,
+cksum_taskq_create(const char *name, int nthreads, pri_t pri,
     int minalloc, int maxalloc, uint_t flags)
 {
 	taskq_t *tq = kmem_zalloc(sizeof (taskq_t), KM_SLEEP);

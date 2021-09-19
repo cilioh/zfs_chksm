@@ -6793,6 +6793,7 @@ _fini(void)
 
 //JW
 	printk(KERN_ERR "==========ZFS function profiling END==========\n");
+	printk(KERN_ERR "[cksum] time:%llu count:%llu\n", xxx_t, xxx_c);
 	printk(KERN_ERR "[__zio_execute] time:%llu count:%llu\n", a_t, a_c);
 	printk(KERN_ERR "[zio_write_bp_init] time:%llu count:%llu\n", aa_t, aa_c);
 	printk(KERN_ERR "[zio_free_bp_init] time:%llu count:%llu\n", bb_t, bb_c);

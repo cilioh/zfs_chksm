@@ -94,13 +94,13 @@ fletcher_4_avx2_fini(fletcher_4_ctx_t *ctx, zio_cksum_t *zcp)
 #endif
 */
 	ZIO_SET_CHECKSUM(zcp, A, B, C, D);
-/*
-#ifdef _KERNEL
-	printk(KERN_WARNING "[AFT] %lld %lld %lld %lld\n", zcp->zc_word[0], zcp->zc_word[1], zcp->zc_word[2], zcp->zc_word[3]);
+
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "[AFT] %lld %lld %lld %lld\n", zcp->zc_word[0], zcp->zc_word[1], zcp->zc_word[2], zcp->zc_word[3]);
 //	printk(KERN_WARNING "%lld %lld %lld %lld\n", A, B, C, D);
 //	printk(KERN_WARNING "====================\n");
-#endif
-*/	
+//#endif
+	
 }
 
 #define	FLETCHER_4_AVX2_RESTORE_CTX(ctx)				\

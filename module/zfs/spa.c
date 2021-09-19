@@ -192,7 +192,7 @@ static void spa_vdev_resilver_done(spa_t *spa);
 
 uint_t		zio_taskq_batch_pct = 75;	/* 1 thread per cpu in pset */
 //JW
-uint_t		chksm_taskq_batch_pct = 75;
+uint_t		cksum_taskq_batch_pct = 75;
 id_t		zio_taskq_psrset_bind = PS_NONE;
 boolean_t	zio_taskq_sysdc = B_TRUE;	/* use SDC scheduling class */
 uint_t		zio_taskq_basedc = 80;		/* base duty cycle */
@@ -936,7 +936,7 @@ spa_taskqs_init(spa_t *spa, zio_type_t t, zio_taskq_type_t q)
 	case ZTI_MODE_BATCH_CHKSM:
 		batch = B_TRUE;
 		flags |= TASKQ_THREADS_CPU_PCT;
-		value = MIN(chksm_taskq_batch_pct, 100);
+		value = MIN(cksum_taskq_batch_pct, 100);
 		break;
 	
 
@@ -977,7 +977,7 @@ spa_taskqs_init(spa_t *spa, zio_type_t t, zio_taskq_type_t q)
 				pri++;
 			//chksm
 			if (t == ZIO_TYPE_WRITE && q == ZIO_TASKQ_CHKSM)
-				tq = chksm_taskq_create_proc(name, value, pri, 50,
+				tq = cksum_taskq_create_proc(name, value, pri, 50,
 					INT_MAX, spa->spa_proc, flags);
 			else
 				tq = taskq_create_proc(name, value, pri, 50,
@@ -7423,8 +7423,8 @@ MODULE_PARM_DESC(zio_taskq_batch_pct,
 	"Percentage of CPUs to run an IO worker thread");
 
 //JW
-module_param(chksm_taskq_batch_pct, uint, 0444);
-MODULE_PARM_DESC(chksm_taskq_batch_pct,
+module_param(cksum_taskq_batch_pct, uint, 0444);
+MODULE_PARM_DESC(cksum_taskq_batch_pct,
 	"Percentage of CPUs to run a chksm IO worker thread");
 
 

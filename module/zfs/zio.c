@@ -47,6 +47,34 @@
 //JW
 #include "/home/kau/zfs_chksm/include/hr_calclock.h"
 //#include "/mnt/pm1/home/kau/zfs_chksm/include/hr_calclock.h"
+//
+//#include "/usr/src/kernels/3.10.0-1062.1.1.el7_myms.x86_64/include/linux/types.h"
+
+//#ifndef _LINUX_HASH_H
+//#include "/home/kau/zfs_chksm/include/sys/hash.h"
+#ifdef _KERNEL
+#include <linux/hash.h>
+#endif
+//#define _LINUX_HASH_H
+//#endif
+
+/*
+typedef struct jw_zio_cksum { 
+	blkptr_t		io_bp;
+	struct abd		*io_abd;
+	uint64_t		io_size;
+	unsigned int		id;
+	taskq_ent_T		cksum_io_tqent;
+	enum zio_checksum	zp_checksum;
+	uint64_t		io_offset;
+
+	zio_cksum_salt_t	spa_cksum_salt;
+	kmutex_t		spa_cksum_tmpls_lock;
+	void			*spa_cksum_tmpls[ZIO_CHECKSUM_FUNCTIONS];
+
+	struct hlist_node	hlink;
+} jw_zio_cksum_t;
+*/
 
 
 //#include <sys/dmu.h>
@@ -61,7 +89,9 @@
 
 //JW_chk
 //static zio_t * zio_checksum_generate(zio_t *zio);
-void chksm_zio_checksum_generate(zio_t *zio);
+//void cksum_zio_checksum_generate(zio_t *zio);
+void cksum_zio_checksum_generate(jw_zio_cksum_t *zio);
+
 unsigned long long xx = 0;
 /*
  * ==========================================================================
@@ -99,8 +129,16 @@ int zio_delay_max = ZIO_DELAY_MAX;
 int zio_nactive = 0;
 int zio_ctxt = 0;
 int zio_opt = 0;
-int zio_chksm_ratio=1;
+int zio_cksum_ratio=1;
 kmem_cache_t *new_zio_cache;
+kmem_cache_t *zio_cksum_cache;
+kmem_cache_t *zio_hash_cache;
+
+#ifdef _KERNEL
+#define CKSUM_HT_SIZE	1048576
+//struct hlist_head *cksum_htable;
+DECLARE_HASHTABLE(cksum_htable, 10);
+#endif
 
 #define	BP_SPANB(indblkshift, level) \
 	(((uint64_t)1) << ((level) * ((indblkshift) - SPA_BLKPTRSHIFT)))
@@ -148,12 +186,18 @@ zio_init(void)
 //JW
 	new_zio_cache = kmem_cache_create("new_zio_cache",
 	    sizeof (zio_t), 0, NULL, NULL, NULL, NULL, NULL, 0);
+	zio_cksum_cache = kmem_cache_create("zio_cksum_cache",
+	    sizeof (jw_zio_cksum_t), 0, NULL, NULL, NULL, NULL, NULL, 0);
 //
 	zio_cache = kmem_cache_create("zio_cache",
 	    sizeof (zio_t), 0, NULL, NULL, NULL, NULL, NULL, 0);
 	zio_link_cache = kmem_cache_create("zio_link_cache",
 	    sizeof (zio_link_t), 0, NULL, NULL, NULL, NULL, NULL, 0);
 
+#ifdef _KERNEL
+	zio_hash_cache = kmem_cache_create("zio_hash_cache",
+		sizeof (struct hlist_head), 0, NULL, NULL, NULL, NULL, NULL, 0);
+#endif
 	/*
 	 * For small buffers, we want a cache for each multiple of
 	 * SPA_MINBLOCKSIZE.  For larger buffers, we want a cache
@@ -225,6 +269,25 @@ zio_init(void)
 			zio_data_buf_cache[c - 1] = zio_data_buf_cache[c];
 	}
 
+	//JW
+#ifdef _KERNEL
+	//DEFINE_HASHTABLE(cksum_htable, 10);
+	//printk(KERN_WARNING "CHECKSUM SIZE:%ld\n", HASH_SIZE(cksum_htable));
+	//cksum_htable = kmalloc(1024 * sizeof (struct hlist_head), KM_SLEEP);
+	
+	hash_init(cksum_htable);
+	/*
+	int i;
+	for (i=0; i<1024; i++){
+		//&cksum_htable[i] = (struct hlist_head *)kmem_cache_alloc(zio_hash_cache, KM_SLEEP);
+		INIT_HLIST_HEAD(&cksum_htable[i]);
+	}
+	*/
+	if(cksum_htable == NULL)
+		printk(KERN_WARNING "CKSUM HTABLE not created\n");
+	else
+		printk(KERN_WARNING "CKSUM HTABLE created\n");
+#endif
 	zio_inject_init();
 
 	lz4_init();
@@ -270,8 +333,14 @@ zio_fini(void)
 	kmem_cache_destroy(zio_cache);
 
 //JW
+//#ifdef _KERNEL
+//	kmem_free(cksum_htable, CKSUM_HT_SIZE * sizeof (struct hlist_head));
+//#endif
 	kmem_cache_destroy(new_zio_cache);
+	kmem_cache_destroy(zio_cksum_cache);
 //
+	kmem_cache_destroy(zio_hash_cache);
+
 	zio_inject_fini();
 
 	lz4_fini();
@@ -795,6 +864,8 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 	zio->io_state[ZIO_WAIT_READY] = (stage >= ZIO_STAGE_READY);
 	zio->io_state[ZIO_WAIT_DONE] = (stage >= ZIO_STAGE_DONE);
 
+	
+
 	if (zb != NULL)
 		zio->io_bookmark = *zb;
 
@@ -809,6 +880,68 @@ zio_create(zio_t *pio, spa_t *spa, uint64_t txg, const blkptr_t *bp,
 	taskq_init_ent(&zio->io_tqent);
 	//JW_chk
 	taskq_init_ent(&zio->chksm_io_tqent);
+	
+	
+	//JW
+	//
+	jw_zio_cksum_t *zio_cksum;
+	zio_cksum = kmem_cache_alloc(zio_cksum_cache, KM_SLEEP);
+	bzero(zio_cksum, sizeof(zio_cksum));
+
+	zio_cksum->id = zio->id;
+	abd_t *jw_buf = NULL;
+	if(zio->io_abd != NULL){
+		jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
+		abd_copy(jw_buf, zio->io_abd, zio->io_size);
+	}
+	zio_cksum->io_abd = jw_buf;
+	//if(zio->io_abd != NULL)
+	//	*zio_cksum->io_abd = *zio->io_abd;
+
+	zio_cksum->io_size = zio->io_size;
+	taskq_init_ent(&zio_cksum->cksum_io_tqent);
+	zio_cksum->zp_checksum = zio->io_prop.zp_checksum;
+	zio_cksum->io_offset = zio->io_offset;
+	
+	zio_cksum->spa_cksum_salt = spa->spa_cksum_salt;
+	mutex_init(&zio_cksum->spa_cksum_tmpls_lock, NULL, MUTEX_DEFAULT, NULL);
+
+	int d;
+	for (d = 0; d < ZIO_CHECKSUM_FUNCTIONS; d++)
+		zio_cksum->spa_cksum_tmpls[d] = spa->spa_cksum_tmpls[d];
+
+	if(zio->io_bp != NULL){
+		zio_cksum->io_bp = *zio->io_bp;
+	}
+#ifdef _KERNEL
+	//&zio_cksum->hlink = kmem_cache_alloc(zio_hash_cache, KM_SLEEP);
+
+	INIT_HLIST_NODE(&zio_cksum->hlink);
+	hash_add(cksum_htable, &zio_cksum->hlink, zio_cksum->id);
+	//printk(KERN_WARNING "HASH_ADD [%ld]\n", zio_cksum->id);
+	/*
+	if(&cksum_htable[0] == NULL)
+		printk(KERN_WARNING "NULL in HASH_ADD [%d]\n", (zio_cksum->id)%1024);
+	else{
+	//	printk(KERN_WARNING "noNULL in HASH_ADD [%d]\n", (zio_cksum->id)%1024);
+		hlist_add_head(&zio_cksum->hlink, &cksum_htable[(zio_cksum->id)%1024]);
+	}
+	*/
+	//printk(KERN_WARNING "HASH_ADD_DONE [%ld]\n", (zio_cksum->id)%1024);
+	
+	jw_zio_cksum_t *cur;
+	hash_for_each_possible(cksum_htable, cur, hlink, zio_cksum->id) {
+		printk(KERN_WARNING "FOUND [%ld][%ld]\n", zio_cksum->id, cur->id);
+	}
+
+
+	hash_del(&zio_cksum->hlink);
+#endif
+
+	if(zio_cksum->io_abd != NULL)
+		abd_free(zio_cksum->io_abd);	
+	mutex_destroy(&zio_cksum->spa_cksum_tmpls_lock);
+	kmem_cache_free(zio_cksum_cache, zio_cksum);
 
 	return (zio);
 }
@@ -1792,9 +1925,43 @@ calclock(b_local, &b_t, &b_c);
 }
 
 //JW_chk
+static void
+cksum_zio_taskq_dispatch(zio_t *zio, jw_zio_cksum_t *zio_cksum, zio_taskq_type_t q, boolean_t cutinline)
+{
+	spa_t *spa = zio->io_spa;
+	zio_type_t t = zio->io_type;
+	int flags = (cutinline ? TQ_FRONT : 0);
+	
+	if (zio->io_priority == ZIO_PRIORITY_NOW &&
+	    spa->spa_zio_taskq[t][q + 1].stqs_count != 0)
+		q++;
+	
+	ASSERT3U(q, <, ZIO_TASKQ_TYPES);
+
+	spa_taskqs_t *tqs = &spa->spa_zio_taskq[t][q];
+	taskq_t *tq;
+	
+	ASSERT3P(tqs->stqs_taskq, !=, NULL);
+	ASSERT3U(tqs->stqs_count, !=, 0);
+
+	if(tqs->stqs_count == 1){
+		tq = tqs->stqs_taskq[0];
+	} else {
+		tq = tqs->stqs_taskq[((uint64_t)gethrtime()) % tqs->stqs_count];
+	}
+
+	ASSERT(taskq_empty_ent(&zio_cksum->cksum_io_tqent));
+
+	cksum_taskq_dispatch_ent(tq, (task_func_t *)cksum_zio_checksum_generate, zio_cksum, flags, &zio_cksum->cksum_io_tqent, zio_cksum->id);
+	
+	//zio->chksm = 2;
+}
+
+/*
+//JW_chk
 int jwww = 0;
 static void
-chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
+cksum_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 {
 	spa_t *spa = zio->io_spa;
 	zio_type_t t = zio->io_type;
@@ -1826,7 +1993,8 @@ chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 //#ifdef _KERNEL
 //	printk(KERN_WARNING "[chksm][%d] tq_name:%s zio_id:%d\n", jwww, tq->tq_name, zio->id);
 //#endif
-	
+*/
+	/*
 	zio_t *new_zio;
 	new_zio = kmem_cache_alloc(new_zio_cache, KM_SLEEP);
 	bzero(new_zio, sizeof(zio_t));
@@ -1843,7 +2011,7 @@ chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 	//if(zio->io_abd != NULL)
 	//	memcpy(new_zio->io_abd, &zio->io_abd, sizeof(zio->io_abd));
 	new_zio->io_size = zio->io_size;
-
+*/
 /*
 #ifdef _KERNEL
 	printk(KERN_WARNING "BEFORE [%lu]\n", new_zio->id);
@@ -1864,15 +2032,15 @@ chksm_zio_taskq_dispatch(zio_t *zio, zio_taskq_type_t q, boolean_t cutinline)
 #endif
 */	
 		
-	//chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, new_zio, flags, &new_zio->chksm_io_tqent, new_zio->id);
-	
+	//cksum_taskq_dispatch_ent(tq, (task_func_t *)cksum_zio_checksum_generate, new_zio, flags, &new_zio->chksm_io_tqent, new_zio->id);
+/*	
 
 
-	chksm_taskq_dispatch_ent(tq, (task_func_t *)chksm_zio_checksum_generate, zio, flags, &zio->chksm_io_tqent, zio->id);
+	cksum_taskq_dispatch_ent(tq, (task_func_t *)cksum_zio_checksum_generate, zio, flags, &zio->chksm_io_tqent, zio->id);
 	
 	//zio->chksm = 2;
 }
-
+*/
 
 
 static boolean_t
@@ -2047,6 +2215,7 @@ int jwjwjw=0;
 int a=0;
 int b=0;
 int x=1;
+unsigned long long xxx_t = 0, xxx_c = 0;
 __attribute__((always_inline))
 static inline void
 __zio_execute(zio_t *zio)
@@ -2162,84 +2331,46 @@ calclock(a_local, &a_t, &a_c);
 //
 //		CHECKSUM stage
 		if(zio_opt == 1 && highbit64(stage)-1 == 6){
-			
-			//zio->chksm = 1;
-			
-			//dprintf("[%u] chksm:%d tq_name:%s tq_nthreads:%d tq_nactive:%d \n", zio->id, zio->chksm, tq->tq_name, tq->tq_nthreads, tq->tq_nactive);
-			//chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_TRUE);
-			
+hrtime_t xxx_local[2];
+xxx_local[0] = gethrtime();
+			jw_zio_cksum_t *zio_cksum;
+			zio_cksum = kmem_cache_alloc(zio_cksum_cache, KM_SLEEP);
+			bzero(zio_cksum, sizeof(zio_cksum));
 
-
-			zio->chksm = 1;
 			abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
 			abd_copy(jw_buf, zio->io_abd, zio->io_size);
-			zio->jw_io_abd = jw_buf;
-			zio->jw_io_size = zio->io_size;
 			
-			blkptr_t *jw_io_bp = &zio->jw_io_bp;
-			blkptr_t *io_bp = zio->io_bp;
-/*
-#ifdef _KERNEL
-			//printk(KERN_WARNING "[%d][%d]\n", zio->yy, zio->id);
-			if(jw_io_bp != NULL)
-				printk(KERN_WARNING "[EXEC][%d] %lld %lld %lld %lld\n", zio->id, (&jw_io_bp->blk_cksum)->zc_word[0], (&jw_io_bp->blk_cksum)->zc_word[1], (&jw_io_bp->blk_cksum)->zc_word[2], (&jw_io_bp->blk_cksum)->zc_word[3]);
-			if(io_bp != NULL)
-				printk(KERN_WARNING "[ORIG][%d] %lld %lld %lld %lld\n", zio->id, (&io_bp->blk_cksum)->zc_word[0], (&io_bp->blk_cksum)->zc_word[1], (&io_bp->blk_cksum)->zc_word[2], (&io_bp->blk_cksum)->zc_word[3]);
-#endif
-*/
-			//ddt_bp_create
-			/*
-			if(zio->io_bp != NULL){
-				ddt_t *ddt = ddt_select(zio->io_spa, zio->io_bp);
-				ddt_entry_t *dde = ddt_repair_start(ddt, zio->io_bp);
-				ddt_phys_t *ddp = dde->dde_phys;
-				ddt_bp_create(ddt->ddt_checksum, &dde->dde_key, ddp, zio->jw_io_bp); 
-			
-#ifdef _KERNEL
-				printk(KERN_WARNING "making BP [%d]\n", zio->id);
-#endif
-			}
-			*/
-			/*
-			blkptr_t *jw_io_bp = zio->jw_io_bp;
-			blkptr_t *io_bp = zio->io_bp;
-			//BP_ZERO(zio->jw_io_bp);
-			int d;
-			if(io_bp != NULL) {
-				for (d = 0; d < 4; d++)
-					jw_io_bp->blk_cksum.zc_word[d] = io_bp->blk_cksum.zc_word[d];
-			}
-			*/
-/*
-			if(io_bp != NULL){
-				for (d = 0; d < SPA_DVAS_PER_BP; d++)
-					jw_io_bp->blk_dva[d] = io_bp->blk_dva[d];
-				jw_io_bp->blk_prop = io_bp->blk_prop;
-				jw_io_bp->blk_pad[0] = io_bp->blk_pad[0];
-				jw_io_bp->blk_pad[1] = io_bp->blk_pad[1];
-				jw_io_bp->blk_phys_birth = io_bp->blk_phys_birth;
-				jw_io_bp->blk_birth = io_bp->blk_birth;
-				jw_io_bp->blk_fill = io_bp->blk_fill;
-				zio_cksum_t jw_blk_cksum = jw_io_bp->blk_cksum;
-				zio_cksum_t blk_cksum = io_bp->blk_cksum;
-				for (d = 0; d < 4; d++)
-					jw_blk_cksum.zc_word[d] = blk_cksum.zc_word[d];
-			}
-*/
-//#ifdef _KERNEL
-//				printk(KERN_WARNING "making BP [%d][%lld]\n", zio->id, jw_io_bp->blk_cksum.zc_word[1]);
-//#endif
-	
+			zio_cksum->io_abd = jw_buf;
+			//if(zio->io_abd != NULL)
+			//	*zio_cksum->io_abd = *zio->io_abd;
 
-			//memcpy(zio->jw_io_bp, zio->io_bp, sizeof(blkptr_t));
-			
-			
-			chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_CHKSM, B_FALSE);
+			zio_cksum->io_size = zio->io_size;
+			zio_cksum->id = zio->id;
+			taskq_init_ent(&zio_cksum->cksum_io_tqent);
+			zio_cksum->zp_checksum = zio->io_prop.zp_checksum;
+			zio_cksum->io_offset = zio->io_offset;
+	
+			zio_cksum->spa_cksum_salt = spa->spa_cksum_salt;
+			mutex_init(&zio_cksum->spa_cksum_tmpls_lock, NULL, MUTEX_DEFAULT, NULL);
+
+			int d;
+			for (d = 0; d < ZIO_CHECKSUM_FUNCTIONS; d++)
+				zio_cksum->spa_cksum_tmpls[d] = spa->spa_cksum_tmpls[d];
+
+			if(zio->io_bp != NULL){
+				zio_cksum->io_bp = *zio->io_bp;
+			}
+
+			//zio->jw_io_abd = jw_buf;
+			//zio->jw_io_size = zio->io_size;
+xxx_local[1] = gethrtime();
+calclock(xxx_local, &xxx_t, &xxx_c);
+			cksum_zio_taskq_dispatch(zio, zio_cksum, ZIO_TASKQ_CHKSM, B_FALSE);
 			stage <<= 1;
 		}
 		//0616
 		else if(zio_opt == 0 && highbit64(stage)-1 == 6){
-			if(zio->id % zio_chksm_ratio != 0)
+			if(zio->id % zio_cksum_ratio != 0)
 				stage <<= 1;
 		}
 /*
@@ -2259,7 +2390,7 @@ calclock(a_local, &a_t, &a_c);
 				if(tq->tq_ctxt >= zio_ctxt) {
 					//dprintf("[%u] io_type:%d tq_ctxt:%d \n", zio->id, zio->io_type, tq->tq_ctxt);
 					zio->chksm = 1;
-					chksm_zio_taskq_dispatch(zio, ZIO_TASKQ_ISSUE, B_FALSE);
+					cksum_zio_taskq_dispatch(zio, ZIO_TASKQ_ISSUE, B_FALSE);
 					stage <<= 1;
 				}
 			}
@@ -2326,7 +2457,7 @@ c_local[0] = gethrtime();
 //		printk(KERN_WARNING "zio_wait id:%lu\n", zio->id);
 //#endif
 	
-	//zio_destroy(zio);
+	zio_destroy(zio);
 	/*
 	if(zio->chksm != 1)
 		zio_destroy(zio);
@@ -2605,9 +2736,12 @@ zio_rewrite_gang(zio_t *pio, blkptr_t *bp, zio_gang_node_t *gn, abd_t *data,
 		if (gn != pio->io_gang_leader->io_gang_tree) {
 			abd_t *buf = abd_get_offset(data, offset);
 
-			zio_checksum_compute(zio, BP_GET_CHECKSUM(bp),
-			    buf, BP_GET_PSIZE(bp));
-
+			//zio_checksum_compute(zio, BP_GET_CHECKSUM(bp),
+			//    buf, BP_GET_PSIZE(bp));
+			//JW
+#ifdef _KERENL
+			printk(KERN_WARNING "ZIO_REWRITE_GANG\n");
+#endif
 			abd_put(buf);
 		}
 		/*
@@ -4155,7 +4289,9 @@ calclock(ee_local, &ee_t, &ee_c);
 			checksum = BP_GET_CHECKSUM(bp);
 		}
 	}
-
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "ORIGINAL[%d]\n", zio->id);
+//#endif
 	zio_checksum_compute(zio, checksum, zio->io_abd, zio->io_size);
 
 
@@ -4165,10 +4301,61 @@ calclock(ee_local, &ee_t, &ee_c);
 }
 
 //JW_chk
+unsigned long long ee_t1=0, ee_c1=0;
+void
+cksum_zio_checksum_generate(jw_zio_cksum_t *zio_cksum)
+{
+	blkptr_t *bp = &zio_cksum->io_bp;
+	enum zio_checksum checksum = zio_cksum->zp_checksum;
+hrtime_t ee_local1[2];
+ee_local1[0] = gethrtime();
+
+	if (bp == NULL) {
+		checksum = zio_cksum->zp_checksum;
+
+		if (checksum == ZIO_CHECKSUM_OFF){
+			//JW_chk
+			//if(zio->chksm != 0)
+			//	zio->chksm = 2;
+ee_local1[1] = gethrtime();
+calclock(ee_local1, &ee_t1, &ee_c1);
+			return (NULL);
+		}
+		ASSERT(checksum == ZIO_CHECKSUM_LABEL);
+	}
+	/*
+	else {
+		if (BP_IS_GANG(bp) && zio->io_child_type == ZIO_CHILD_GANG) {
+			ASSERT(!IO_IS_ALLOCATING(zio));
+			checksum = ZIO_CHECKSUM_GANG_HEADER;
+		} else {
+			checksum = BP_GET_CHECKSUM(bp);
+		}
+	}
+	*/
+//#ifdef _KERNEL
+//	printk(KERN_WARNING "COMPUTE[%d]\n", zio_cksum->id);
+//#endif
+	cksum_zio_checksum_compute(zio_cksum, checksum, zio_cksum->io_abd, zio_cksum->io_size);
+	
+	//kmem_cache_free(zio_cksum_cache, zio_cksum);
+
+	//abd_free(zio_cksum->io_abd);
+	//mutex_destroy(&zio_cksum->spa_cksum_tmpls_lock);
+	//zio->chksm = 2;
+	
+
+ee_local1[1] = gethrtime();
+calclock(ee_local1, &ee_t1, &ee_c1);	
+	return (NULL);
+}
+
+/*
+//JW_chk
 //static zio_t *
 unsigned long long ee_t1=0, ee_c1=0;
 void
-chksm_zio_checksum_generate(zio_t *zio)
+cksum_zio_checksum_generate(zio_t *zio)
 {
 //#ifdef _KERNEL
 //	printk(KERN_WARNING "ZIO HERE [%u]\n", zio->id);
@@ -4206,10 +4393,10 @@ calclock(ee_local1, &ee_t1, &ee_c1);
 //	printk(KERN_WARNING "CHECKSUM [%d]\n", zio->id);
 //#endif
 	//zio_checksum_compute(zio, checksum, abd_alloc_sametype(zio->io_abd, zio->io_size), zio->io_size);
-	/*abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
-	abd_copy(jw_buf, zio->io_abd, zio->io_size);
-	zio->jw_io_abd = jw_buf;
-	zio->jw_io_size = zio->io_size; */
+	//abd_t *jw_buf = abd_alloc_sametype(zio->io_abd, zio->io_size);
+	//abd_copy(jw_buf, zio->io_abd, zio->io_size);
+	//zio->jw_io_abd = jw_buf;
+	//zio->jw_io_size = zio->io_size; 
 	
 
 	zio_checksum_compute(zio, checksum, zio->jw_io_abd, zio->jw_io_size);
@@ -4230,7 +4417,7 @@ calclock(ee_local1, &ee_t1, &ee_c1);
 
 
 }
-
+*/
 static zio_t *
 zio_checksum_verify(zio_t *zio)
 {
@@ -4918,7 +5105,7 @@ calclock(m_local, &m_t, &m_c);
 //#ifdef _KERNEL
 //		printk(KERN_WARNING "zio_done id:%lu\n", zio->id);
 //#endif
-		//zio_destroy(zio);
+		zio_destroy(zio);
 		/*
 		if(zio->chksm != 1)
 			zio_destroy(zio);
@@ -5107,8 +5294,8 @@ EXPORT_SYMBOL(zio_buf_free);
 EXPORT_SYMBOL(zio_data_buf_free);
 
 //JW
-module_param(zio_chksm_ratio, int, 0644);
-MODULE_PARM_DESC(zio_chksm_ratio, "zio checksum skip ratio");
+module_param(zio_cksum_ratio, int, 0644);
+MODULE_PARM_DESC(zio_cksum_ratio, "zio checksum skip ratio");
 
 
 module_param(zio_opt, int, 0644);

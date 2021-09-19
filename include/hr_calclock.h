@@ -8,6 +8,8 @@
 extern unsigned long long chk_t, chk_c;
 extern unsigned long long chk_t_1, chk_c_1;
 
+extern unsigned long long xxx_t, xxx_c;
+
 extern unsigned long long a_t, a_c;
 extern unsigned long long b_t, b_c;
 extern unsigned long long c_t, c_c;

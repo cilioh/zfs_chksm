@@ -48,6 +48,17 @@ extern "C" {
  */
 #define	ZEC_MAGIC	0x210da7ab10c7a11ULL
 
+//JW
+
+//#ifndef _LINUX_HASH_H
+//#include "/home/kau/zfs_chksm/include/sys/hash.h"
+#ifdef _KERNEL
+#include <linux/hash.h>
+#endif
+//#define _LINUX_HASH_H
+//`#endif
+
+
 typedef struct zio_eck {
 	uint64_t	zec_magic;	/* for validation, endianness	*/
 	zio_cksum_t	zec_cksum;	/* 256-bit checksum		*/
@@ -398,6 +409,24 @@ typedef struct zio_link {
 	list_node_t	zl_parent_node;
 	list_node_t	zl_child_node;
 } zio_link_t;
+
+typedef struct jw_zio_cksum {
+	blkptr_t 		io_bp;
+	struct abd 		*io_abd;
+	uint64_t		io_size;
+	unsigned int		id;
+	taskq_ent_t		cksum_io_tqent;
+	enum zio_checksum	zp_checksum;
+	uint64_t		io_offset;
+
+	zio_cksum_salt_t	spa_cksum_salt;
+	kmutex_t		spa_cksum_tmpls_lock;
+	void			*spa_cksum_tmpls[ZIO_CHECKSUM_FUNCTIONS];
+
+#ifdef _KERNEL
+	struct hlist_node	hlink;
+#endif
+} jw_zio_cksum_t;
 
 struct zio {
 	/* Core information about this I/O */
